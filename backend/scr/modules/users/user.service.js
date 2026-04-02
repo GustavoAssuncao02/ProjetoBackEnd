@@ -5,11 +5,10 @@ class UserService {
   async register(data) {
     data.password = await bcrypt.hash(data.password, 10)
 
-    // 👇 CONVERSÃO AQUI
-    data.birth_date = new Date(data.birth_date)
+    data.role = 'CUSTOMER' // força aqui
 
     return userRepository.create(data)
-}
+  }
 
   getAllUsers() {
     return userRepository.findAll()
