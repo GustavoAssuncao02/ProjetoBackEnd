@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import styles from './editProfile.styles'
+import styles from './Profile.Styles'
 
 export default function EditProfile() {
   const [formData, setFormData] = useState({
