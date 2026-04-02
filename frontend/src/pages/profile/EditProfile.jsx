@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import styles from './EditProfile.Styles'
+import styles from './editProfile.styles'
 
 export default function EditProfile() {
   const [formData, setFormData] = useState({
@@ -17,6 +17,8 @@ export default function EditProfile() {
   const [message, setMessage] = useState('')
   const [loading, setLoading] = useState(false)
   const [fetching, setFetching] = useState(true)
+  const [confirmDelete, setConfirmDelete] = useState(false)
+  const [deleting, setDeleting] = useState(false)
 
   useEffect(() => {
     loadUser()
@@ -110,6 +112,41 @@ export default function EditProfile() {
       setMessage(error.message)
     } finally {
       setLoading(false)
+    }
+  }
+
+  async function handleDeleteAccount() {
+    setDeleting(true)
+    setMessage('')
+
+    try {
+      const token = localStorage.getItem('token')
+
+      const response = await fetch(`http://localhost:3000/users/${formData.id}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Error deleting account')
+      }
+
+      localStorage.removeItem('token')
+      localStorage.removeItem('user')
+
+      setMessage('Account deleted successfully!')
+      setTimeout(() => {
+        window.location.href = '/'
+      }, 1000)
+    } catch (error) {
+      setMessage(error.message)
+    } finally {
+      setDeleting(false)
+      setConfirmDelete(false)
     }
   }
 
@@ -211,6 +248,44 @@ export default function EditProfile() {
             {loading ? 'Saving...' : 'Save changes'}
           </button>
         </form>
+
+        {!confirmDelete && (
+          <button
+            type="button"
+            style={styles.dangerButton}
+            onClick={() => setConfirmDelete(true)}
+          >
+            Delete account
+          </button>
+        )}
+
+        {confirmDelete && (
+          <div style={styles.dangerBox}>
+            <p style={styles.dangerText}>
+              Are you sure you want to delete your account? This action cannot be undone.
+            </p>
+
+            <div style={styles.buttonGroup}>
+              <button
+                type="button"
+                style={styles.dangerButton}
+                onClick={handleDeleteAccount}
+                disabled={deleting}
+              >
+                {deleting ? 'Deleting...' : 'Delete'}
+              </button>
+
+              <button
+                type="button"
+                style={styles.cancelButton}
+                onClick={() => setConfirmDelete(false)}
+                disabled={deleting}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        )}
 
         {message && <p style={styles.message}>{message}</p>}
       </div>

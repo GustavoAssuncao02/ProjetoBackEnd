@@ -47,6 +47,41 @@ const styles = {
     fontSize: '16px',
     cursor: 'pointer'
   },
+  dangerButton: {
+    padding: '12px',
+    borderRadius: '8px',
+    border: 'none',
+    backgroundColor: '#dc2626',
+    color: '#fff',
+    fontSize: '16px',
+    cursor: 'pointer',
+    marginTop: '12px'
+  },
+  cancelButton: {
+    padding: '12px',
+    borderRadius: '8px',
+    border: '1px solid #ccc',
+    backgroundColor: '#fff',
+    color: '#111827',
+    fontSize: '16px',
+    cursor: 'pointer',
+    marginTop: '12px'
+  },
+  dangerBox: {
+    marginTop: '20px',
+    padding: '16px',
+    border: '1px solid #fecaca',
+    backgroundColor: '#fef2f2',
+    borderRadius: '10px'
+  },
+  dangerText: {
+    color: '#991b1b',
+    margin: 0
+  },
+  buttonGroup: {
+    display: 'flex',
+    gap: '10px'
+  },
   message: {
     marginTop: '15px',
     textAlign: 'center',
