@@ -106,6 +106,29 @@ class AddressRepository {
       where: { id }
     })
   }
+  findByIdAndUserId(id, user_id) {
+  return prisma.addresses.findFirst({
+    where: {
+      id,
+      user_id
+    },
+    select: {
+      id: true,
+      user_id: true,
+      street: true,
+      number: true,
+      complement: true,
+      neighborhood: true,
+      city: true,
+      state: true,
+      zip_code: true,
+      country: true,
+      created_at: true,
+      updated_at: true
+    }
+  })
+}
+
 }
 
 module.exports = new AddressRepository()

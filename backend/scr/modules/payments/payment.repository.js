@@ -91,6 +91,48 @@ class PaymentRepository {
       where: { id }
     })
   }
+  findByIdAndUserId(id, user_id) {
+  return prisma.payments.findFirst({
+    where: {
+      id,
+      orders: {
+        user_id
+      }
+    },
+    select: {
+      id: true,
+      order_id: true,
+      payment_method: true,
+      amount: true,
+      status: true,
+      transaction_id: true,
+      paid_at: true,
+      created_at: true,
+      updated_at: true
+    }
+  })
+}
+
+findByUserId(user_id) {
+  return prisma.payments.findMany({
+    where: {
+      orders: {
+        user_id
+      }
+    },
+    select: {
+      id: true,
+      order_id: true,
+      payment_method: true,
+      amount: true,
+      status: true,
+      transaction_id: true,
+      paid_at: true,
+      created_at: true,
+      updated_at: true
+    }
+  })
+}
 }
 
 module.exports = new PaymentRepository()

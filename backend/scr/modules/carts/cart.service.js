@@ -87,6 +87,41 @@ class CartController {
       res.status(400).json({ error: err.message })
     }
   }
+  getMyCarts(user_id) {
+  return cartRepository.findCartsByUserId(Number(user_id))
+}
+
+async getMyCartById(id, user_id) {
+  const cart = await cartRepository.findCartByIdAndUserId(Number(id), Number(user_id))
+
+  if (!cart) {
+    throw new Error('Cart not found')
+  }
+
+  return cart
+}
+
+async updateMyCart(id, user_id, data) {
+  const cart = await cartRepository.findCartByIdAndUserId(Number(id), Number(user_id))
+
+  if (!cart) {
+    throw new Error('Cart not found')
+  }
+
+  delete data.user_id
+
+  return cartRepository.updateCartById(Number(id), data)
+}
+
+async deleteMyCart(id, user_id) {
+  const cart = await cartRepository.findCartByIdAndUserId(Number(id), Number(user_id))
+
+  if (!cart) {
+    throw new Error('Cart not found')
+  }
+
+  return cartRepository.deleteCartById(Number(id))
+}
 }
 
 module.exports = new CartController()

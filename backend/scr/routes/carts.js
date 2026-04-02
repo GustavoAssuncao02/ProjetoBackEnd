@@ -1,8 +1,15 @@
 const express = require('express')
 const router = express.Router()
 const cartController = require('../modules/carts/cart.controller')
+const authMiddleware = require('../middlewares/auth.middleware')
 
-router.post('/', cartController.create)
+router.post('/', authMiddleware, cartController.create)
+
+router.get('/me', authMiddleware, cartController.getMine)
+router.get('/me/:id', authMiddleware, cartController.getMyById)
+router.put('/me/:id', authMiddleware, cartController.updateMine)
+router.delete('/me/:id', authMiddleware, cartController.deleteMine)
+
 router.get('/', cartController.getAll)
 router.get('/:id', cartController.getById)
 router.put('/:id', cartController.update)

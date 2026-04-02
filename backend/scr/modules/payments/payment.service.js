@@ -71,6 +71,19 @@ class PaymentService {
 
     return paymentRepository.deleteById(Number(id))
   }
+  getMyPayments(user_id) {
+  return paymentRepository.findByUserId(Number(user_id))
+}
+
+async getMyPaymentById(id, user_id) {
+  const payment = await paymentRepository.findByIdAndUserId(Number(id), Number(user_id))
+
+  if (!payment) {
+    throw new Error('Payment not found')
+  }
+
+  return payment
+}
 }
 
 module.exports = new PaymentService()

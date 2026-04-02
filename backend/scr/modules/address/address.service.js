@@ -60,6 +60,41 @@ class AddressService {
 
     return addressRepository.deleteById(Number(id))
   }
+  getMyAddresses(user_id) {
+  return addressRepository.findByUserId(Number(user_id))
+}
+
+async getMyAddressById(id, user_id) {
+  const address = await addressRepository.findByIdAndUserId(Number(id), Number(user_id))
+
+  if (!address) {
+    throw new Error('Address not found')
+  }
+
+  return address
+}
+
+async updateMyAddress(id, user_id, data) {
+  const address = await addressRepository.findByIdAndUserId(Number(id), Number(user_id))
+
+  if (!address) {
+    throw new Error('Address not found')
+  }
+
+  delete data.user_id
+
+  return addressRepository.updateById(Number(id), data)
+}
+
+async deleteMyAddress(id, user_id) {
+  const address = await addressRepository.findByIdAndUserId(Number(id), Number(user_id))
+
+  if (!address) {
+    throw new Error('Address not found')
+  }
+
+  return addressRepository.deleteById(Number(id))
+}
 }
 
 module.exports = new AddressService()

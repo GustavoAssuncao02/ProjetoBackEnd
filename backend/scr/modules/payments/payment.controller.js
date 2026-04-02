@@ -58,6 +58,24 @@ class PaymentController {
       res.status(400).json({ error: err.message })
     }
   }
+  async getMine(req, res) {
+  try {
+    const payments = await paymentService.getMyPayments(req.user.id)
+    res.status(200).json(payments)
+  } catch (err) {
+    res.status(400).json({ error: err.message })
+  }
+}
+
+async getMyById(req, res) {
+  try {
+    const { id } = req.params
+    const payment = await paymentService.getMyPaymentById(id, req.user.id)
+    res.status(200).json(payment)
+  } catch (err) {
+    res.status(400).json({ error: err.message })
+  }
+}
 }
 
 module.exports = new PaymentController()

@@ -51,7 +51,13 @@ class OrderController {
 
   async checkout(req, res) {
     try {
-      const result = await orderService.checkout(req.body)
+      const user_id = req.user.id
+
+      const result = await orderService.checkout({
+        ...req.body,
+        user_id
+      })
+
       res.status(201).json(result)
     } catch (err) {
       res.status(400).json({ error: err.message })
