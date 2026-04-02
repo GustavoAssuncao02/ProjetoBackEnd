@@ -13,10 +13,11 @@ const orderItemRoutes = require('./routes/orderitems')
 const authRoutes = require('./routes/auth')
 const saleRoutes = require('./routes/sales')
 const errorMiddleware = require('./middlewares/error.middleware')
-const swaggerUi = require('swagger-ui-express')
-const swaggerSpec = require('./config/swagger')
+const path = require('path')
+const productImageRoutes = require('./routes/productImages')
 
-
+app.use('/uploads', express.static(path.resolve(__dirname, '../uploads')))
+app.use('/product-images', productImageRoutes)
 app.use('/sales', saleRoutes)
 app.use('/order-items', orderItemRoutes)
 app.use(express.json())
@@ -32,5 +33,6 @@ app.use('/cart-items', cartItemRoutes)
 app.use(errorMiddleware)
 const swaggerUi = require('swagger-ui-express')
 const swaggerSpec = require('./config/swagger')
+
 
 module.exports = app
