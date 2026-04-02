@@ -43,6 +43,30 @@ class AuthService {
       token
     }
   }
+
+  async me(userId) {
+    const user = await prisma.users.findUnique({
+      where: { id: Number(userId) },
+      select: {
+        id: true,
+        name: true,
+        birth_date: true,
+        email: true,
+        cpf: true,
+        phone: true,
+        gender: true,
+        role: true,
+        created_at: true,
+        updated_at: true
+      }
+    })
+
+    if (!user) {
+      throw new Error('User not found')
+    }
+
+    return user
+  }
 }
 
 module.exports = new AuthService()
