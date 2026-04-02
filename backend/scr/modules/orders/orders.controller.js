@@ -48,6 +48,15 @@ class OrderController {
       res.status(400).json({ error: err.message })
     }
   }
+
+  async checkout(req, res) {
+    try {
+      const result = await orderService.checkout(req.body)
+      res.status(201).json(result)
+    } catch (err) {
+      res.status(400).json({ error: err.message })
+    }
+  }
 }
 
 module.exports = new OrderController()

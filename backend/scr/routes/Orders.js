@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const orderController = require('../modules/orders/orders.controller')
 
+router.post('/checkout', orderController.checkout)
 router.post('/', orderController.create)
 router.get('/', orderController.getAll)
 router.get('/:id', orderController.getById)
