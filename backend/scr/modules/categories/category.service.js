@@ -6,6 +6,10 @@ class CategoryService {
       throw new Error('Name is required')
     }
 
+    if (data.activated === undefined) {
+      data.activated = true
+    }
+
     return categoryRepository.create(data)
   }
 
@@ -41,6 +45,18 @@ class CategoryService {
     }
 
     return categoryRepository.deleteById(id)
+  }
+
+  async toggleCategory(id) {
+    const category = await categoryRepository.findById(id)
+
+    if (!category) {
+      throw new Error('Category not found')
+    }
+
+    return categoryRepository.updateById(id, {
+      activated: !category.activated
+    })
   }
 }
 

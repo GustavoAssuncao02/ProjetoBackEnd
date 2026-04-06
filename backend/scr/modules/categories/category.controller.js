@@ -48,6 +48,16 @@ class CategoryController {
       res.status(400).json({ error: err.message })
     }
   }
+
+  async toggle(req, res) {
+    try {
+      const { id } = req.params
+      const category = await categoryService.toggleCategory(Number(id))
+      res.status(200).json(category)
+    } catch (err) {
+      res.status(400).json({ error: err.message })
+    }
+  }
 }
 
 module.exports = new CategoryController()

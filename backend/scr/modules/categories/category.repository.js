@@ -7,6 +7,7 @@ class CategoryRepository {
       select: {
         id: true,
         name: true,
+        activated: true,
         created_at: true,
         updated_at: true
       }
@@ -19,6 +20,7 @@ class CategoryRepository {
       select: {
         id: true,
         name: true,
+        activated: true,
         created_at: true,
         updated_at: true
       }
@@ -30,6 +32,7 @@ class CategoryRepository {
       select: {
         id: true,
         name: true,
+        activated: true,
         created_at: true,
         updated_at: true
       }
@@ -43,6 +46,7 @@ class CategoryRepository {
       select: {
         id: true,
         name: true,
+        activated: true,
         created_at: true,
         updated_at: true
       }

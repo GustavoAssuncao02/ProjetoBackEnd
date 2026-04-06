@@ -6,8 +6,8 @@ class ProductService {
       throw new Error('Name is required')
     }
 
-    if (data.price === undefined || data.price === null) {
-      throw new Error('Price is required')
+    if (data.current_price === undefined || data.current_price === null) {
+      throw new Error('Current price is required')
     }
 
     if (data.stock_quantity === undefined || data.stock_quantity === null) {
@@ -18,9 +18,15 @@ class ProductService {
       throw new Error('Category id is required')
     }
 
-    data.price = Number(data.price)
+    data.current_price = Number(data.current_price)
     data.stock_quantity = Number(data.stock_quantity)
     data.category_id = Number(data.category_id)
+
+    if (data.old_price !== undefined && data.old_price !== null && data.old_price !== '') {
+      data.old_price = Number(data.old_price)
+    } else {
+      data.old_price = null
+    }
 
     return productRepository.create(data)
   }
@@ -46,8 +52,16 @@ class ProductService {
       throw new Error('Product not found')
     }
 
-    if (data.price !== undefined) {
-      data.price = Number(data.price)
+    if (data.current_price !== undefined) {
+      data.current_price = Number(data.current_price)
+    }
+
+    if (data.old_price !== undefined) {
+      if (data.old_price === '' || data.old_price === null) {
+        data.old_price = null
+      } else {
+        data.old_price = Number(data.old_price)
+      }
     }
 
     if (data.stock_quantity !== undefined) {

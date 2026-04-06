@@ -6,6 +6,7 @@ router.post('/', categoryController.create)
 router.get('/', categoryController.getAll)
 router.get('/:id', categoryController.getById)
 router.put('/:id', categoryController.update)
+router.patch('/:id/toggle', categoryController.toggle)
 router.delete('/:id', categoryController.delete)
 
 module.exports = router
