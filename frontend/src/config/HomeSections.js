@@ -1,27 +1,29 @@
-export const homeSections = [
+const homeSections = [
   {
     id: 'main-header',
-    enabled: true,
-    order: 1
+    order: 1,
+    visible: true
   },
   {
     id: 'info-bar',
-    enabled: true,
-    order: 2
+    order: 2,
+    visible: true
   },
   {
     id: 'hero-banner',
-    enabled: true,
-    order: 3
+    order: 3,
+    visible: true
   },
   {
     id: 'product-highlights',
-    enabled: true,
-    order: 4
+    order: 4,
+    visible: true
   },
   {
     id: 'location-title',
-    enabled: true,
-    order: 5
+    order: 5,
+    visible: true
   }
 ]
+
+export default homeSections

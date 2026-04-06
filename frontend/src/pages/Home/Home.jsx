@@ -4,7 +4,7 @@ import HeroBanner from '../../components/home/HeroBanner'
 import ProductHighlights from '../../components/home/ProductHighlights'
 import SectionTitle from '../../components/home/SectionTitle'
 import styles from '../../components/home/Home.Styles'
-import { homeSections } from '../../config/homeSections'
+import homeSections from '../../config/HomeSections'
 
 const sectionMap = {
   'main-header': <MainHeader />,
@@ -16,7 +16,7 @@ const sectionMap = {
 
 export default function Home() {
   const orderedSections = [...homeSections]
-    .filter((section) => section.enabled)
+    .filter((section) => section.visible)
     .sort((a, b) => a.order - b.order)
 
   return (
