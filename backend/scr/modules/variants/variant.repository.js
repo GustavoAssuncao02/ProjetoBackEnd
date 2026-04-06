@@ -81,6 +81,24 @@ class VariantRepository {
       where: { id }
     })
   }
+
+  async getTotalStockByProductId(product_id) {
+    const result = await prisma.variants.aggregate({
+      where: { product_id },
+      _sum: {
+        stock_quantity: true
+      }
+    })
+
+    return result._sum.stock_quantity || 0
+  }
+
+  updateProductStock(product_id, stock_quantity) {
+    return prisma.products.update({
+      where: { id: product_id },
+      data: { stock_quantity }
+    })
+  }
 }
 
 module.exports = new VariantRepository()

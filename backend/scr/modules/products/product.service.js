@@ -10,16 +10,11 @@ class ProductService {
       throw new Error('Current price is required')
     }
 
-    if (data.stock_quantity === undefined || data.stock_quantity === null) {
-      throw new Error('Stock quantity is required')
-    }
-
     if (data.category_id === undefined || data.category_id === null) {
       throw new Error('Category id is required')
     }
 
     data.current_price = Number(data.current_price)
-    data.stock_quantity = Number(data.stock_quantity)
     data.category_id = Number(data.category_id)
 
     if (data.old_price !== undefined && data.old_price !== null && data.old_price !== '') {
@@ -27,6 +22,9 @@ class ProductService {
     } else {
       data.old_price = null
     }
+
+    // estoque do produto sempre começa em 0
+    data.stock_quantity = 0
 
     return productRepository.create(data)
   }
@@ -64,13 +62,12 @@ class ProductService {
       }
     }
 
-    if (data.stock_quantity !== undefined) {
-      data.stock_quantity = Number(data.stock_quantity)
-    }
-
     if (data.category_id !== undefined) {
       data.category_id = Number(data.category_id)
     }
+
+    // impede alteração manual
+    delete data.stock_quantity
 
     return productRepository.updateById(id, data)
   }

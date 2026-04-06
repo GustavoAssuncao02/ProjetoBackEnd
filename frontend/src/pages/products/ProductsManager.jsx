@@ -13,7 +13,6 @@ export default function ProductsManager() {
     description: '',
     old_price: '',
     current_price: '',
-    stock_quantity: '',
     category_id: ''
   })
 
@@ -78,7 +77,6 @@ export default function ProductsManager() {
         description: formData.description,
         old_price: formData.old_price === '' ? null : Number(formData.old_price),
         current_price: Number(formData.current_price),
-        stock_quantity: Number(formData.stock_quantity),
         category_id: Number(formData.category_id)
       }
 
@@ -113,7 +111,6 @@ export default function ProductsManager() {
       description: product.description || '',
       old_price: product.old_price ?? '',
       current_price: product.current_price ?? '',
-      stock_quantity: product.stock_quantity || '',
       category_id: product.category_id || ''
     })
     setMessage('')
@@ -126,7 +123,6 @@ export default function ProductsManager() {
       description: '',
       old_price: '',
       current_price: '',
-      stock_quantity: '',
       category_id: ''
     })
   }
@@ -200,17 +196,6 @@ export default function ProductsManager() {
             style={styles.input}
             required
           />
-
-          <input
-            type="number"
-            name="stock_quantity"
-            placeholder="Stock quantity"
-            value={formData.stock_quantity}
-            onChange={handleChange}
-            style={styles.input}
-            required
-          />
-
           <select
             name="category_id"
             value={formData.category_id}

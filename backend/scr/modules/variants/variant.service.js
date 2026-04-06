@@ -1,6 +1,12 @@
 const variantRepository = require('./variant.repository')
+const prisma = require('../../database/prisma')
 
 class VariantService {
+  async syncProductStock(product_id) {
+    const totalStock = await variantRepository.getTotalStockByProductId(Number(product_id))
+    await variantRepository.updateProductStock(Number(product_id), totalStock)
+  }
+
   async createVariant(data) {
     if (!data.product_id) {
       throw new Error('Product id is required')
@@ -21,7 +27,18 @@ class VariantService {
     data.product_id = Number(data.product_id)
     data.stock_quantity = Number(data.stock_quantity)
 
-    return variantRepository.create(data)
+    const product = await prisma.products.findUnique({
+      where: { id: data.product_id }
+    })
+
+    if (!product) {
+      throw new Error('Product not found')
+    }
+
+    const variant = await variantRepository.create(data)
+    await this.syncProductStock(data.product_id)
+
+    return variant
   }
 
   getAllVariants() {
@@ -29,7 +46,7 @@ class VariantService {
   }
 
   async getVariantById(id) {
-    const variant = await variantRepository.findById(id)
+    const variant = await variantRepository.findById(Number(id))
 
     if (!variant) {
       throw new Error('Variant not found')
@@ -43,9 +60,9 @@ class VariantService {
   }
 
   async updateVariant(id, data) {
-    const variant = await variantRepository.findById(id)
+    const oldVariant = await variantRepository.findById(Number(id))
 
-    if (!variant) {
+    if (!oldVariant) {
       throw new Error('Variant not found')
     }
 
@@ -57,17 +74,28 @@ class VariantService {
       data.stock_quantity = Number(data.stock_quantity)
     }
 
-    return variantRepository.updateById(id, data)
+    const updatedVariant = await variantRepository.updateById(Number(id), data)
+
+    await this.syncProductStock(oldVariant.product_id)
+
+    if (data.product_id && data.product_id !== oldVariant.product_id) {
+      await this.syncProductStock(data.product_id)
+    }
+
+    return updatedVariant
   }
 
   async deleteVariant(id) {
-    const variant = await variantRepository.findById(id)
+    const variant = await variantRepository.findById(Number(id))
 
     if (!variant) {
       throw new Error('Variant not found')
     }
 
-    return variantRepository.deleteById(id)
+    await variantRepository.deleteById(Number(id))
+    await this.syncProductStock(variant.product_id)
+
+    return { message: 'Variant deleted successfully' }
   }
 }
 

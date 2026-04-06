@@ -22,7 +22,7 @@ class VariantController {
   async getById(req, res) {
     try {
       const { id } = req.params
-      const variant = await variantService.getVariantById(Number(id))
+      const variant = await variantService.getVariantById(id)
       res.status(200).json(variant)
     } catch (err) {
       res.status(400).json({ error: err.message })
@@ -32,7 +32,7 @@ class VariantController {
   async getByProductId(req, res) {
     try {
       const { productId } = req.params
-      const variants = await variantService.getVariantsByProductId(Number(productId))
+      const variants = await variantService.getVariantsByProductId(productId)
       res.status(200).json(variants)
     } catch (err) {
       res.status(400).json({ error: err.message })
@@ -42,7 +42,7 @@ class VariantController {
   async update(req, res) {
     try {
       const { id } = req.params
-      const variant = await variantService.updateVariant(Number(id), req.body)
+      const variant = await variantService.updateVariant(id, req.body)
       res.status(200).json(variant)
     } catch (err) {
       res.status(400).json({ error: err.message })
@@ -52,8 +52,8 @@ class VariantController {
   async delete(req, res) {
     try {
       const { id } = req.params
-      await variantService.deleteVariant(Number(id))
-      res.status(200).json({ message: 'Variant deleted successfully' })
+      const result = await variantService.deleteVariant(id)
+      res.status(200).json(result)
     } catch (err) {
       res.status(400).json({ error: err.message })
     }

@@ -4,6 +4,9 @@ import CategoriesManager from './pages/categories/CategoriesManager'
 import Login from './pages/login/login'
 import Profile from './pages/profile/Profile'
 import ProductsManager from './pages/products/ProductsManager'
+import VariantsManager from './pages/variants/VariantsManager'
+import AddressesManager from './pages/addresses/addressesManager'
+
 
 function App() {
   return (
@@ -13,6 +16,9 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/categories" element={<CategoriesManager />} />
         <Route path="/products" element={<ProductsManager />} />
+        <Route path="/products/variant" element={<VariantsManager />} />
+        <Route path="/addresses" element={<AddressesManager />} />
+
       </Routes>
     </BrowserRouter>
   )
