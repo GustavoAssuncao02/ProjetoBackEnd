@@ -6,12 +6,13 @@ import Profile from './pages/profile/Profile'
 import ProductsManager from './pages/products/ProductsManager'
 import VariantsManager from './pages/variants/VariantsManager'
 import AddressesManager from './pages/addresses/addressesManager'
-
+import Home from './pages/Home/Home'
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/categories" element={<CategoriesManager />} />
