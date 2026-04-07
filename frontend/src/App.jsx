@@ -7,7 +7,7 @@ import ProductsManager from './pages/products/ProductsManager'
 import VariantsManager from './pages/variants/VariantsManager'
 import AddressesManager from './pages/addresses/addressesManager'
 import Home from './pages/Home/Home'
-
+import ProductReviews from './pages/reviews/ProductReviews'
 function App() {
   return (
     <BrowserRouter>
@@ -19,6 +19,8 @@ function App() {
         <Route path="/products" element={<ProductsManager />} />
         <Route path="/products/variant" element={<VariantsManager />} />
         <Route path="/addresses" element={<AddressesManager />} />
+        <Route path="/products/:id/reviews" element={<ProductReviewsPage />} />
+        
 
       </Routes>
     </BrowserRouter>
