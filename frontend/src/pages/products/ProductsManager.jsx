@@ -2,6 +2,10 @@ import { useEffect, useState } from 'react'
 import styles from './ProductsManager.Styles'
 
 export default function ProductsManager() {
+  const [sortConfig, setSortConfig] = useState({
+    key: 'id',
+    direction: 'desc'
+  })
   const [products, setProducts] = useState([])
   const [categories, setCategories] = useState([])
   const [editingId, setEditingId] = useState(null)
@@ -36,6 +40,77 @@ export default function ProductsManager() {
       setMessage(error.message)
     }
   }
+  function handleSort(key) {
+    setSortConfig((prev) => {
+      if (prev.key === key) {
+        return {
+          key,
+          direction: prev.direction === 'asc' ? 'desc' : 'asc'
+        }
+      }
+
+      return {
+        key,
+        direction: key === 'id' ? 'desc' : 'asc'
+      }
+    })
+  }
+  function getSortIndicator(columnKey) {
+    if (sortConfig.key !== columnKey) return '↕'
+    return sortConfig.direction === 'asc' ? '↑' : '↓'
+  }
+  const sortedProducts = [...products].sort((a, b) => {
+    let valueA
+    let valueB
+
+    switch (sortConfig.key) {
+      case 'id':
+        valueA = a.id
+        valueB = b.id
+        break
+      case 'old_price':
+        valueA = a.old_price ?? 0
+        valueB = b.old_price ?? 0
+        break
+
+      case 'stock':
+        valueA = a.stock_quantity ?? 0
+        valueB = b.stock_quantity ?? 0
+        break
+
+      case 'name':
+        valueA = a.name?.toLowerCase() || ''
+        valueB = b.name?.toLowerCase() || ''
+        break
+
+      case 'price':
+        valueA = a.current_price
+        valueB = b.current_price
+        break
+
+      case 'category':
+        valueA = a.categories?.name?.toLowerCase() || ''
+        valueB = b.categories?.name?.toLowerCase() || ''
+        break
+
+      case 'subcategory':
+        valueA = a.subcategories?.name?.toLowerCase() || ''
+        valueB = b.subcategories?.name?.toLowerCase() || ''
+        break
+      case 'description':
+        valueA = a.description?.toLowerCase() || ''
+        valueB = b.description?.toLowerCase() || ''
+        break
+
+      default:
+        valueA = a.id
+        valueB = b.id
+    }
+
+    if (valueA < valueB) return sortConfig.direction === 'asc' ? -1 : 1
+    if (valueA > valueB) return sortConfig.direction === 'asc' ? 1 : -1
+    return 0
+  })
 
   async function loadCategories() {
     try {
@@ -286,19 +361,43 @@ export default function ProductsManager() {
         <table style={styles.table}>
           <thead>
             <tr>
-              <th style={styles.th}>ID</th>
-              <th style={styles.th}>Name</th>
-              <th style={styles.th}>Description</th>
-              <th style={styles.th}>Old Price</th>
-              <th style={styles.th}>Current Price</th>
-              <th style={styles.th}>Stock</th>
-              <th style={styles.th}>Category</th>
-              <th style={styles.th}>Subcategory</th>
+              <th style={styles.th} onClick={() => handleSort('id')}>
+                ID {getSortIndicator('id')}
+              </th>
+
+              <th style={styles.th} onClick={() => handleSort('name')}>
+                Name {getSortIndicator('name')}
+              </th>
+
+              <th style={styles.th} onClick={() => handleSort('description')}>
+                Description {getSortIndicator('description')}
+              </th>
+
+              <th style={styles.th} onClick={() => handleSort('old_price')}>
+                Old Price {getSortIndicator('old_price')}
+              </th>
+
+              <th style={styles.th} onClick={() => handleSort('price')}>
+                Current Price {getSortIndicator('price')}
+              </th>
+
+              <th style={styles.th} onClick={() => handleSort('stock')}>
+                Stock {getSortIndicator('stock')}
+              </th>
+
+              <th style={styles.th} onClick={() => handleSort('category')}>
+                Category {getSortIndicator('category')}
+              </th>
+
+              <th style={styles.th} onClick={() => handleSort('subcategory')}>
+                Subcategory {getSortIndicator('subcategory')}
+              </th>
+
               <th style={styles.th}>Actions</th>
             </tr>
           </thead>
           <tbody>
-            {products.map((product) => (
+            {sortedProducts.map((product) => (
               <tr key={product.id}>
                 <td style={styles.td}>{product.id}</td>
                 <td style={styles.td}>{product.name}</td>

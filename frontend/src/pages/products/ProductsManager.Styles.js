@@ -5,7 +5,7 @@ const styles = {
     padding: '30px'
   },
   card: {
-    maxWidth: '1100px',
+    maxWidth: '1200px',
     margin: '0 auto',
     backgroundColor: '#fff',
     borderRadius: '12px',
@@ -59,8 +59,15 @@ const styles = {
     color: '#fff',
     cursor: 'pointer'
   },
+  th: {
+    cursor: 'pointer',
+    textAlign: 'left',
+    borderBottom: '1px solid #ddd',
+    padding: '12px'
+  },
   table: {
     width: '100%',
+    tableLayout: 'auto', // 👈 melhora distribuição
     borderCollapse: 'collapse'
   },
   th: {
