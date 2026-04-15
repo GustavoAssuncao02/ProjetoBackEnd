@@ -7,13 +7,14 @@ export default function ProductsManager() {
   const [editingId, setEditingId] = useState(null)
   const [message, setMessage] = useState('')
   const [loading, setLoading] = useState(false)
-
+  const [subcategories, setSubcategories] = useState([])
   const [formData, setFormData] = useState({
     name: '',
     description: '',
     old_price: '',
     current_price: '',
-    category_id: ''
+    category_id: '',
+    subcategory_id: ''
   })
 
   useEffect(() => {
@@ -54,10 +55,22 @@ export default function ProductsManager() {
 
   function handleChange(e) {
     const { name, value } = e.target
+
     setFormData((prev) => ({
       ...prev,
       [name]: value
     }))
+
+    // 👇 SE MUDAR CATEGORIA, CARREGA SUBCATEGORIA
+    if (name === 'category_id') {
+      setFormData((prev) => ({
+        ...prev,
+        category_id: value,
+        subcategory_id: '' // limpa subcategoria
+      }))
+
+      loadSubcategories(value)
+    }
   }
 
   async function handleSubmit(e) {
@@ -77,7 +90,8 @@ export default function ProductsManager() {
         description: formData.description,
         old_price: formData.old_price === '' ? null : Number(formData.old_price),
         current_price: Number(formData.current_price),
-        category_id: Number(formData.category_id)
+        category_id: Number(formData.category_id),
+        subcategory_id: Number(formData.subcategory_id) // 👈 NOVO
       }
 
       const response = await fetch(url, {
@@ -111,8 +125,10 @@ export default function ProductsManager() {
       description: product.description || '',
       old_price: product.old_price ?? '',
       current_price: product.current_price ?? '',
-      category_id: product.category_id || ''
+      category_id: product.category_id || '',
+      subcategory_id: product.subcategory_id || '' // 👈 NOVO
     })
+    loadSubcategories(product.category_id) // 👈 IMPORTANTE
     setMessage('')
   }
 
@@ -123,7 +139,8 @@ export default function ProductsManager() {
       description: '',
       old_price: '',
       current_price: '',
-      category_id: ''
+      category_id: '',
+      subcategory_id: '' // 👈 NOVO
     })
   }
 
@@ -156,6 +173,27 @@ export default function ProductsManager() {
   function getCategoryName(categoryId) {
     const category = categories.find((item) => item.id === categoryId)
     return category ? category.name : `Category #${categoryId}`
+  }
+  async function loadSubcategories(categoryId) {
+    if (!categoryId) {
+      setSubcategories([])
+      return
+    }
+
+    try {
+      const response = await fetch(
+        `http://localhost:3000/subcategories/by-category?category_id=${categoryId}`
+      )
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Error loading subcategories')
+      }
+
+      setSubcategories(data.subcategories)
+    } catch (error) {
+      setMessage(error.message)
+    }
   }
 
   return (
@@ -210,6 +248,21 @@ export default function ProductsManager() {
               </option>
             ))}
           </select>
+          <select
+            name="subcategory_id"
+            value={formData.subcategory_id}
+            onChange={handleChange}
+            style={styles.input}
+            required
+          >
+            <option value="">Select a subcategory</option>
+
+            {subcategories.map((sub) => (
+              <option key={sub.id} value={sub.id}>
+                {sub.name}
+              </option>
+            ))}
+          </select>
 
           <textarea
             name="description"
@@ -240,6 +293,7 @@ export default function ProductsManager() {
               <th style={styles.th}>Current Price</th>
               <th style={styles.th}>Stock</th>
               <th style={styles.th}>Category</th>
+              <th style={styles.th}>Subcategory</th>
               <th style={styles.th}>Actions</th>
             </tr>
           </thead>
@@ -256,7 +310,8 @@ export default function ProductsManager() {
                 </td>
                 <td style={styles.td}>R$ {Number(product.current_price).toFixed(2)}</td>
                 <td style={styles.td}>{product.stock_quantity}</td>
-                <td style={styles.td}>{getCategoryName(product.category_id)}</td>
+                <td style={styles.td}>{product.categories?.name || '-'}</td>
+                <td style={styles.td}>{product.subcategories?.name || '-'}</td>
                 <td style={styles.td}>
                   <div style={styles.actions}>
                     <button

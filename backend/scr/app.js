@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 app.use(cors())
-
+const subcategoriesRoutes = require('./routes/subcategories');
 const variantRoutes = require('./routes/variants')
 const userRoutes = require('./routes/users')
 const productRoutes = require('./routes/products')
@@ -37,6 +37,7 @@ app.use('/variants', variantRoutes)
 app.use('/cart-items', cartItemRoutes)
 app.use('/addresses', addressRoutes)
 app.use('/payments', paymentRoutes)
+app.use('/subcategories', subcategoriesRoutes);
 app.use(errorMiddleware)
 const swaggerUi = require('swagger-ui-express')
 const swaggerSpec = require('./config/swagger')

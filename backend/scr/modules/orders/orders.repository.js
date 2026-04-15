@@ -127,6 +127,9 @@ class OrderRepository {
       const products = await tx.products.findMany({
         where: {
           id: { in: productIds }
+        },
+        include: {
+          subcategory: true
         }
       })
 

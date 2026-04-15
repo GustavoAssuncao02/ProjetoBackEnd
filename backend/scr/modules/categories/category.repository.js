@@ -53,10 +53,20 @@ class CategoryRepository {
     })
   }
 
-  deleteById(id) {
-    return prisma.categories.delete({
-      where: { id }
-    })
+  async deleteById(id) {
+    try {
+      return await prisma.categories.delete({
+        where: { id: Number(id) }
+      });
+    } catch (error) {
+      if (error.code === "P2003") {
+        throw new Error(
+          "A categoria não pode ser excluída porque possui produtos ou subcategorias vinculados a ela."
+        );
+      }
+
+      throw new Error("Erro ao excluir categoria.");
+    }
   }
 }
 

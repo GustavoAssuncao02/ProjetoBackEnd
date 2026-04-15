@@ -36,20 +36,13 @@ class ProductRepository {
   }
 
   findAll() {
-    return prisma.products.findMany({
-      select: {
-        id: true,
-        name: true,
-        description: true,
-        old_price: true,
-        current_price: true,
-        stock_quantity: true,
-        category_id: true,
-        created_at: true,
-        updated_at: true
-      }
-    })
-  }
+  return prisma.products.findMany({
+    include: {
+      categories: true,
+      subcategories: true
+    }
+  })
+}
 
   updateById(id, data) {
     return prisma.products.update({
