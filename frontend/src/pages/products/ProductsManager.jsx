@@ -234,7 +234,7 @@ export default function ProductsManager() {
         throw new Error(data.error || 'Error deleting product')
       }
 
-      setMessage('Product deleted successfully!')
+      setMessage('Produto deletado com sucesso')
       loadProducts()
 
       if (editingId === id) {

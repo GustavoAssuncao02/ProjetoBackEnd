@@ -89,7 +89,7 @@ export default function VariantsManager() {
         throw new Error(data.error || 'Error saving variant')
       }
 
-      setMessage(editingId ? 'Variant updated successfully!' : 'Variant created successfully!')
+      setMessage(editingId ? 'Variant updated successfully!' : 'Variante criada com Sucesso!')
       resetForm()
       loadVariants()
       loadProducts()
