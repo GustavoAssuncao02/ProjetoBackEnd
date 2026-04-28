@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import MenuAdm from '../../components/menu-adm/MenuAdm'
 import styles from './addressesManager.styles'
 
 export default function AddressesManager() {
@@ -152,6 +153,8 @@ export default function AddressesManager() {
   if (!token) {
     return (
       <div style={styles.container}>
+        <MenuAdm />
+
         <div style={styles.loginBox}>
           <h1>Login required</h1>
           <p>You need to be logged in to manage your addresses.</p>
@@ -162,6 +165,8 @@ export default function AddressesManager() {
 
   return (
     <div style={styles.container}>
+      <MenuAdm />
+
       <div style={styles.card}>
         <h1 style={styles.title}>My Addresses</h1>
 

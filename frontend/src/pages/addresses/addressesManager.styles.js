@@ -5,7 +5,7 @@ const styles = {
     padding: '30px'
   },
   card: {
-    maxWidth: '1100px',
+    maxWidth: '1200px',
     margin: '0 auto',
     backgroundColor: '#fff',
     borderRadius: '12px',
@@ -76,8 +76,8 @@ const styles = {
     textAlign: 'center'
   },
   loginBox: {
-    maxWidth: '500px',
-    margin: '80px auto',
+    maxWidth: '1200px',
+    margin: '0 auto',
     backgroundColor: '#fff',
     borderRadius: '12px',
     padding: '30px',

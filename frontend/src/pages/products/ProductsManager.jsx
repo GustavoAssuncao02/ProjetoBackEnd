@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import MenuAdm from '../../components/menu-adm/MenuAdm'
 import styles from './ProductsManager.Styles'
 
 export default function ProductsManager() {
@@ -273,6 +274,8 @@ export default function ProductsManager() {
 
   return (
     <div style={styles.container}>
+      <MenuAdm />
+
       <div style={styles.card}>
         <h1 style={styles.title}>Products Manager</h1>
 

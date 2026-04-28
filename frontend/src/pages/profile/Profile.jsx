@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import MenuAdm from '../../components/menu-adm/MenuAdm'
 import styles from './Profile.Styles'
 
 export default function EditProfile() {
@@ -11,6 +12,7 @@ export default function EditProfile() {
     phone: '',
     gender: '',
     password: '',
+    password_confirmation: '',
     role: ''
   })
 
@@ -50,6 +52,7 @@ export default function EditProfile() {
         phone: data.phone || '',
         gender: data.gender || '',
         password: '',
+        password_confirmation: '',
         role: data.role || ''
       })
     } catch (error) {
@@ -73,6 +76,21 @@ export default function EditProfile() {
     setMessage('')
 
     try {
+      const hasPassword = formData.password.trim()
+      const hasPasswordConfirmation = formData.password_confirmation.trim()
+
+      if (hasPassword && !hasPasswordConfirmation) {
+        throw new Error('Confirm your new password before saving.')
+      }
+
+      if (!hasPassword && hasPasswordConfirmation) {
+        throw new Error('Enter a new password before confirming it.')
+      }
+
+      if (hasPassword && formData.password !== formData.password_confirmation) {
+        throw new Error('New password and confirmation do not match.')
+      }
+
       const token = localStorage.getItem('token')
 
       const bodyData = {
@@ -106,7 +124,8 @@ export default function EditProfile() {
 
       setFormData((prev) => ({
         ...prev,
-        password: ''
+        password: '',
+        password_confirmation: ''
       }))
     } catch (error) {
       setMessage(error.message)
@@ -153,6 +172,8 @@ export default function EditProfile() {
   if (fetching) {
     return (
       <div style={styles.container}>
+        <MenuAdm />
+
         <div style={styles.card}>
           <h1 style={styles.title}>Loading profile...</h1>
         </div>
@@ -162,6 +183,8 @@ export default function EditProfile() {
 
   return (
     <div style={styles.container}>
+      <MenuAdm />
+
       <div style={styles.card}>
         <h1 style={styles.title}>Edit Profile</h1>
 
@@ -240,6 +263,15 @@ export default function EditProfile() {
             name="password"
             placeholder="New password (optional)"
             value={formData.password}
+            onChange={handleChange}
+            style={styles.input}
+          />
+
+          <input
+            type="password"
+            name="password_confirmation"
+            placeholder="Confirm new password"
+            value={formData.password_confirmation}
             onChange={handleChange}
             style={styles.input}
           />

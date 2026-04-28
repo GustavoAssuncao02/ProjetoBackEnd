@@ -5,7 +5,7 @@ const styles = {
     padding: '30px'
   },
   card: {
-    maxWidth: '1000px',
+    maxWidth: '1200px',
     margin: '0 auto',
     backgroundColor: '#fff',
     borderRadius: '12px',

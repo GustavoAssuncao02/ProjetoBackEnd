@@ -1,4 +1,5 @@
 import { Fragment, useEffect, useMemo, useState } from 'react'
+import MenuAdm from '../../components/menu-adm/MenuAdm'
 import styles from './variantsManager.styles'
 
 const colorOptions = [
@@ -317,6 +318,8 @@ export default function VariantsManager() {
 
   return (
     <div style={styles.container}>
+      <MenuAdm />
+
       <div style={styles.card}>
         <h1 style={styles.title}>Variants Manager</h1>
 

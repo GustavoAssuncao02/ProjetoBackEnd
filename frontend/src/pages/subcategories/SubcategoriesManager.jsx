@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import MenuAdm from '../../components/menu-adm/MenuAdm'
 import styles from './SubcategoriesManager.Styles'
 
 export default function SubcategoriesManager() {
@@ -405,6 +406,8 @@ export default function SubcategoriesManager() {
 
     return (
         <div style={styles.container}>
+            <MenuAdm />
+
             <div style={styles.card}>
                 <h1 style={styles.title}>Subcategories Manager</h1>
 

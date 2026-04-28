@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import MenuAdm from '../../components/menu-adm/MenuAdm'
 import styles from './categoriesManager.styles'
 
 export default function CategoriesManager() {
@@ -122,6 +123,8 @@ export default function CategoriesManager() {
 
   return (
     <div style={styles.container}>
+      <MenuAdm />
+
       <div style={styles.card}>
         <h1 style={styles.title}>Categories Manager</h1>
 

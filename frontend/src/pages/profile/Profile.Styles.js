@@ -1,18 +1,16 @@
 const styles = {
   container: {
     minHeight: '100vh',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: '#f4f4f4',
-    padding: '20px'
+    padding: '30px'
   },
   card: {
     width: '100%',
-    maxWidth: '500px',
+    maxWidth: '1200px',
+    margin: '0 auto',
     backgroundColor: '#fff',
     borderRadius: '12px',
-    padding: '30px',
+    padding: '24px',
     boxShadow: '0 4px 15px rgba(0,0,0,0.1)'
   },
   title: {
@@ -20,8 +18,8 @@ const styles = {
     marginBottom: '20px'
   },
   form: {
-    display: 'flex',
-    flexDirection: 'column',
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
     gap: '12px'
   },
   input: {
@@ -45,7 +43,8 @@ const styles = {
     backgroundColor: '#111827',
     color: '#fff',
     fontSize: '16px',
-    cursor: 'pointer'
+    cursor: 'pointer',
+    width: '100%'
   },
   dangerButton: {
     padding: '12px',
@@ -80,7 +79,8 @@ const styles = {
   },
   buttonGroup: {
     display: 'flex',
-    gap: '10px'
+    gap: '10px',
+    flexWrap: 'wrap'
   },
   message: {
     marginTop: '15px',
