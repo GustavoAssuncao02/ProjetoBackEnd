@@ -1,5 +1,6 @@
 const variantRepository = require('./variant.repository')
 const prisma = require('../../database/prisma')
+const { uploadImageToDrive } = require('../../services/googleDrive.service')
 
 class VariantService {
   async syncProductStock(product_id) {
@@ -7,7 +8,7 @@ class VariantService {
     await variantRepository.updateProductStock(Number(product_id), totalStock)
   }
 
-  async createVariant(data) {
+  async createVariant(data, files) {
     if (!data.product_id) {
       throw new Error('Product id is required')
     }
@@ -24,6 +25,10 @@ class VariantService {
       throw new Error('Stock quantity is required')
     }
 
+    if (!files || files.length === 0) {
+      throw new Error('At least one image is required')
+    }
+
     data.product_id = Number(data.product_id)
     data.stock_quantity = Number(data.stock_quantity)
 
@@ -35,10 +40,39 @@ class VariantService {
       throw new Error('Product not found')
     }
 
-    const variant = await variantRepository.create(data)
+    const variant = await variantRepository.create({
+      product_id: data.product_id,
+      size: data.size,
+      color: data.color,
+      stock_quantity: data.stock_quantity
+    })
+
+    const images = []
+
+    for (let index = 0; index < files.length; index++) {
+      const uploadedImage = await uploadImageToDrive(files[index], {
+        productName: product.name,
+        color: data.color,
+        size: data.size,
+        index
+      })
+
+      const image = await variantRepository.createImage({
+        variant_id: variant.id,
+        image_url: uploadedImage.url,
+        color: data.color,
+        display_order: index
+      })
+
+      images.push(image)
+    }
+
     await this.syncProductStock(data.product_id)
 
-    return variant
+    return {
+      ...variant,
+      product_images: images
+    }
   }
 
   getAllVariants() {
@@ -66,20 +100,30 @@ class VariantService {
       throw new Error('Variant not found')
     }
 
-    if (data.product_id !== undefined) {
-      data.product_id = Number(data.product_id)
+    const updateData = {}
+
+    if (data.product_id !== undefined && data.product_id !== '') {
+      updateData.product_id = Number(data.product_id)
     }
 
-    if (data.stock_quantity !== undefined) {
-      data.stock_quantity = Number(data.stock_quantity)
+    if (data.size !== undefined) {
+      updateData.size = data.size
     }
 
-    const updatedVariant = await variantRepository.updateById(Number(id), data)
+    if (data.color !== undefined) {
+      updateData.color = data.color
+    }
+
+    if (data.stock_quantity !== undefined && data.stock_quantity !== '') {
+      updateData.stock_quantity = Number(data.stock_quantity)
+    }
+
+    const updatedVariant = await variantRepository.updateById(Number(id), updateData)
 
     await this.syncProductStock(oldVariant.product_id)
 
-    if (data.product_id && data.product_id !== oldVariant.product_id) {
-      await this.syncProductStock(data.product_id)
+    if (updateData.product_id && updateData.product_id !== oldVariant.product_id) {
+      await this.syncProductStock(updateData.product_id)
     }
 
     return updatedVariant

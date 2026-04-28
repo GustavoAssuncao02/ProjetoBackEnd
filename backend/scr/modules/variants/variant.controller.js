@@ -3,7 +3,7 @@ const variantService = require('./variant.service')
 class VariantController {
   async create(req, res) {
     try {
-      const variant = await variantService.createVariant(req.body)
+      const variant = await variantService.createVariant(req.body, req.files)
       res.status(201).json(variant)
     } catch (err) {
       res.status(400).json({ error: err.message })

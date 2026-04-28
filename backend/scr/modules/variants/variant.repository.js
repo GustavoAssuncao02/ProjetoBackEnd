@@ -16,6 +16,20 @@ class VariantRepository {
     })
   }
 
+  createImage(data) {
+    return prisma.product_images.create({
+      data,
+      select: {
+        id: true,
+        variant_id: true,
+        image_url: true,
+        color: true,
+        display_order: true,
+        created_at: true
+      }
+    })
+  }
+
   findById(id) {
     return prisma.variants.findUnique({
       where: { id },
@@ -26,7 +40,20 @@ class VariantRepository {
         color: true,
         stock_quantity: true,
         created_at: true,
-        updated_at: true
+        updated_at: true,
+        product_images: {
+          orderBy: {
+            display_order: 'asc'
+          },
+          select: {
+            id: true,
+            variant_id: true,
+            image_url: true,
+            color: true,
+            display_order: true,
+            created_at: true
+          }
+        }
       }
     })
   }
@@ -40,7 +67,20 @@ class VariantRepository {
         color: true,
         stock_quantity: true,
         created_at: true,
-        updated_at: true
+        updated_at: true,
+        product_images: {
+          orderBy: {
+            display_order: 'asc'
+          },
+          select: {
+            id: true,
+            variant_id: true,
+            image_url: true,
+            color: true,
+            display_order: true,
+            created_at: true
+          }
+        }
       }
     })
   }
@@ -55,7 +95,20 @@ class VariantRepository {
         color: true,
         stock_quantity: true,
         created_at: true,
-        updated_at: true
+        updated_at: true,
+        product_images: {
+          orderBy: {
+            display_order: 'asc'
+          },
+          select: {
+            id: true,
+            variant_id: true,
+            image_url: true,
+            color: true,
+            display_order: true,
+            created_at: true
+          }
+        }
       }
     })
   }
@@ -71,7 +124,20 @@ class VariantRepository {
         color: true,
         stock_quantity: true,
         created_at: true,
-        updated_at: true
+        updated_at: true,
+        product_images: {
+          orderBy: {
+            display_order: 'asc'
+          },
+          select: {
+            id: true,
+            variant_id: true,
+            image_url: true,
+            color: true,
+            display_order: true,
+            created_at: true
+          }
+        }
       }
     })
   }
