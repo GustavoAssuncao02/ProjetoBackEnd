@@ -9,6 +9,7 @@ import AddressesManager from './pages/addresses/addressesManager'
 import Home from './pages/Home/Home'
 import ProductReviews from './pages/reviews/ProductReviews'
 import SubcategoriesManager from './pages/subcategories/SubcategoriesManager'
+import Register from './pages/register/RegisterUser'
 function App() {
   return (
     <BrowserRouter>
@@ -22,7 +23,7 @@ function App() {
         <Route path="/addresses" element={<AddressesManager />} />
         <Route path="/products/:id/reviews" element={<ProductReviews />} />
         <Route path="/subcategories-manager" element={<SubcategoriesManager />} />
-        
+        <Route path="/register" element={<Register />} />
 
       </Routes>
     </BrowserRouter>

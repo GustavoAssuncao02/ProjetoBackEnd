@@ -92,6 +92,12 @@ export default function Login() {
           <button type="submit" style={styles.button} disabled={loading}>
             {loading ? 'Logging in...' : 'Login'}
           </button>
+          <div style={styles.registerRedirect}>
+            Não possui conta?{' '}
+            <a href="/register" style={styles.registerLink}>
+              Faça o cadastro clicando aqui
+            </a>
+          </div>
         </form>
 
         {message && <p style={styles.message}>{message}</p>}

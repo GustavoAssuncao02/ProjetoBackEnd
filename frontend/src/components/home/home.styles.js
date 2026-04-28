@@ -17,9 +17,13 @@ const styles = {
   },
 
   logo: {
+    color: '#fff',
     fontSize: '26px',
     fontWeight: 'bold',
-    letterSpacing: '1px'
+    letterSpacing: '1px',
+    textDecoration: 'none',
+    whiteSpace: 'nowrap',
+    cursor: 'pointer'
   },
 
   search: {
@@ -29,11 +33,15 @@ const styles = {
     padding: '10px 14px',
     borderRadius: '20px',
     border: 'none',
-    outline: 'none'
+    outline: 'none',
+    backgroundColor: '#f5f5f5',
+    color: '#111',
+    fontSize: '14px'
   },
 
   nav: {
     display: 'flex',
+    alignItems: 'center',
     gap: '24px',
     fontSize: '15px',
     fontWeight: 'bold',
@@ -41,7 +49,23 @@ const styles = {
   },
 
   navItem: {
+    color: '#fff',
+    textDecoration: 'none',
+    cursor: 'pointer',
+    whiteSpace: 'nowrap'
+  },
+
+  cartLink: {
+    color: '#fff',
+    textDecoration: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
     cursor: 'pointer'
+  },
+
+  cartIcon: {
+    display: 'block'
   },
 
   infoBar: {
