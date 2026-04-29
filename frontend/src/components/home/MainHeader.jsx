@@ -8,6 +8,18 @@ export default function MainHeader() {
   const currentSearchTerm = new URLSearchParams(location.search).get('search') || ''
   const [cartCount, setCartCount] = useState(getCartItemCount)
 
+  const searchFormStyle = {
+    ...styles.searchForm,
+    width: '50%',
+    maxWidth: '320px',
+    flex: '0 1 320px',
+  }
+
+  const searchInputStyle = {
+    ...styles.search,
+    width: '100%',
+  }
+
   useEffect(() => {
     function updateCartCount(event) {
       setCartCount(event.detail?.count ?? getCartItemCount())
@@ -44,14 +56,14 @@ export default function MainHeader() {
         </a>
       </div>
 
-      <form action="/allproducts" method="get" style={styles.searchForm}>
+      <form action="/allproducts" method="get" style={searchFormStyle}>
         <input
           key={location.search}
           type="text"
           name="search"
           placeholder="Digite aqui para pesquisar"
           defaultValue={currentSearchTerm}
-          style={styles.search}
+          style={searchInputStyle}
         />
       </form>
 

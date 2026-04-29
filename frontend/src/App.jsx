@@ -11,6 +11,7 @@ import ProductReviews from './pages/reviews/ProductReviews'
 import SubcategoriesManager from './pages/subcategories/SubcategoriesManager'
 import Register from './pages/register/RegisterUser'
 import AllProducts from './pages/allproducts/AllProducts'
+import Cart from './pages/cart/Cart'
 import ProductDetails from './pages/productDetails/ProductDetails'
 import MaterialsManager from './pages/materials/MaterialsManager'
 function App() {
@@ -30,6 +31,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/allproducts" element={<AllProducts />} />
         <Route path="/allproducts/:productId" element={<ProductDetails />} />
+        <Route path="/carrinho" element={<Cart />} />
 
       </Routes>
     </BrowserRouter>

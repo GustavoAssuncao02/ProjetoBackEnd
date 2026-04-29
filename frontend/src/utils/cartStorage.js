@@ -1,6 +1,26 @@
 const CART_STORAGE_KEY = 'orion_outlet_cart'
 export const CART_UPDATED_EVENT = 'orion-cart-updated'
 
+function getItemIdentity(item) {
+  return [
+    String(item.product_id),
+    String(item.variant_id || ''),
+    String(item.color || ''),
+    String(item.size || '')
+  ].join('|')
+}
+
+function saveCartItems(cartItems) {
+  window.localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cartItems))
+  window.dispatchEvent(
+    new CustomEvent(CART_UPDATED_EVENT, {
+      detail: {
+        count: cartItems.reduce((total, item) => total + Number(item.quantity || 0), 0)
+      }
+    })
+  )
+}
+
 export function getCartItems() {
   if (typeof window === 'undefined') {
     return []
@@ -28,12 +48,7 @@ export function addCartItem(item) {
   }
 
   const existingItem = cartItems.find((cartItem) => {
-    return (
-      String(cartItem.product_id) === String(normalizedItem.product_id) &&
-      String(cartItem.variant_id || '') === String(normalizedItem.variant_id || '') &&
-      String(cartItem.color || '') === String(normalizedItem.color || '') &&
-      String(cartItem.size || '') === String(normalizedItem.size || '')
-    )
+    return getItemIdentity(cartItem) === getItemIdentity(normalizedItem)
   })
 
   const nextCartItems = existingItem
@@ -47,14 +62,38 @@ export function addCartItem(item) {
       )
     : [...cartItems, normalizedItem]
 
-  window.localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(nextCartItems))
-  window.dispatchEvent(
-    new CustomEvent(CART_UPDATED_EVENT, {
-      detail: {
-        count: getCartItemCount()
-      }
-    })
-  )
+  saveCartItems(nextCartItems)
 
   return nextCartItems
+}
+
+export function updateCartItemQuantity(targetItem, quantity) {
+  const normalizedQuantity = Math.max(1, Number(quantity || 1))
+  const targetIdentity = getItemIdentity(targetItem)
+  const nextCartItems = getCartItems().map((item) =>
+    getItemIdentity(item) === targetIdentity
+      ? {
+          ...item,
+          quantity: normalizedQuantity
+        }
+      : item
+  )
+
+  saveCartItems(nextCartItems)
+  return nextCartItems
+}
+
+export function removeCartItem(targetItem) {
+  const targetIdentity = getItemIdentity(targetItem)
+  const nextCartItems = getCartItems().filter(
+    (item) => getItemIdentity(item) !== targetIdentity
+  )
+
+  saveCartItems(nextCartItems)
+  return nextCartItems
+}
+
+export function clearCartItems() {
+  saveCartItems([])
+  return []
 }
