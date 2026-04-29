@@ -1,80 +1,139 @@
+const t = {
+  fontDisplay: "'Cormorant Garamond', 'Georgia', serif",
+  fontBody: "'Jost', 'Helvetica Neue', Arial, sans-serif",
+  bg: '#F6F4F1',
+  surface: '#FFFFFF',
+  surfaceSoft: '#F9F8F6',
+  border: '#DDD9D3',
+  text: '#141412',
+  muted: '#6E6B66',
+  accent: '#141412',
+  danger: '#7B1D1D',
+  dangerSoft: '#F9EEEE',
+  shadowMd: '0 4px 24px rgba(20,20,18,0.09)'
+}
+
+const inputBase = {
+  fontFamily: t.fontBody,
+  fontSize: '13px',
+  color: t.text,
+  backgroundColor: 'transparent',
+  border: 'none',
+  borderBottom: `1px solid ${t.border}`,
+  borderRadius: 0,
+  padding: '10px 0',
+  outline: 'none',
+  letterSpacing: '0.03em',
+  width: '100%',
+  boxSizing: 'border-box'
+}
+
 const styles = {
   container: {
     minHeight: '100vh',
-    backgroundColor: '#f4f4f4',
-    padding: '30px'
+    backgroundColor: t.bg,
+    padding: '30px 20px 48px',
+    fontFamily: t.fontBody
   },
   card: {
     width: '100%',
     maxWidth: '1200px',
     margin: '0 auto',
-    backgroundColor: '#fff',
-    borderRadius: '12px',
-    padding: '24px',
-    boxShadow: '0 4px 15px rgba(0,0,0,0.1)'
+    backgroundColor: t.surface,
+    padding: '52px 48px',
+    boxShadow: t.shadowMd,
+    boxSizing: 'border-box'
   },
   title: {
-    textAlign: 'center',
-    marginBottom: '20px'
+    fontFamily: t.fontDisplay,
+    fontSize: '38px',
+    fontWeight: '400',
+    color: t.text,
+    letterSpacing: '0.04em',
+    margin: '0 0 34px',
+    textAlign: 'center'
   },
   form: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-    gap: '12px'
+    gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+    gap: '18px 24px'
   },
   input: {
-    padding: '12px',
-    borderRadius: '8px',
-    border: '1px solid #ccc',
-    fontSize: '14px'
+    ...inputBase
   },
   disabledInput: {
-    padding: '12px',
-    borderRadius: '8px',
-    border: '1px solid #ddd',
-    backgroundColor: '#f3f4f6',
-    color: '#666',
-    fontSize: '14px'
+    ...inputBase,
+    color: t.muted,
+    backgroundColor: t.surfaceSoft,
+    borderBottom: `1px solid ${t.border}`,
+    padding: '10px 12px'
   },
   button: {
-    padding: '12px',
-    borderRadius: '8px',
+    gridColumn: '1 / -1',
+    fontFamily: t.fontBody,
+    fontSize: '12px',
+    fontWeight: '500',
+    letterSpacing: '0.12em',
+    textTransform: 'uppercase',
+    color: '#FFFFFF',
+    backgroundColor: t.accent,
     border: 'none',
-    backgroundColor: '#111827',
-    color: '#fff',
-    fontSize: '16px',
+    padding: '14px 0',
     cursor: 'pointer',
+    marginTop: '8px',
     width: '100%'
   },
   dangerButton: {
-    padding: '12px',
-    borderRadius: '8px',
+    fontFamily: t.fontBody,
+    fontSize: '12px',
+    fontWeight: '500',
+    letterSpacing: '0.1em',
+    textTransform: 'uppercase',
+    color: '#FFFFFF',
+    backgroundColor: t.danger,
     border: 'none',
-    backgroundColor: '#dc2626',
-    color: '#fff',
-    fontSize: '16px',
+    padding: '13px 18px',
     cursor: 'pointer',
-    marginTop: '12px'
+    marginTop: '18px'
+  },
+  logoutButton: {
+    display: 'block',
+    fontFamily: t.fontBody,
+    fontSize: '12px',
+    fontWeight: '500',
+    letterSpacing: '0.1em',
+    textTransform: 'uppercase',
+    color: t.text,
+    backgroundColor: 'transparent',
+    border: `1px solid ${t.border}`,
+    padding: '13px 18px',
+    cursor: 'pointer',
+    marginTop: '18px'
   },
   cancelButton: {
-    padding: '12px',
-    borderRadius: '8px',
-    border: '1px solid #ccc',
-    backgroundColor: '#fff',
-    color: '#111827',
-    fontSize: '16px',
+    fontFamily: t.fontBody,
+    fontSize: '12px',
+    fontWeight: '500',
+    letterSpacing: '0.1em',
+    textTransform: 'uppercase',
+    color: t.text,
+    backgroundColor: 'transparent',
+    border: `1px solid ${t.border}`,
+    padding: '13px 18px',
     cursor: 'pointer',
-    marginTop: '12px'
+    marginTop: '18px'
   },
   dangerBox: {
-    marginTop: '20px',
-    padding: '16px',
-    border: '1px solid #fecaca',
-    backgroundColor: '#fef2f2',
-    borderRadius: '10px'
+    marginTop: '24px',
+    padding: '18px',
+    border: `1px solid ${t.danger}`,
+    backgroundColor: t.dangerSoft
   },
   dangerText: {
-    color: '#991b1b',
+    color: t.danger,
+    fontFamily: t.fontBody,
+    fontSize: '13px',
+    lineHeight: 1.6,
     margin: 0
   },
   buttonGroup: {
@@ -83,9 +142,12 @@ const styles = {
     flexWrap: 'wrap'
   },
   message: {
-    marginTop: '15px',
+    fontFamily: t.fontBody,
+    fontSize: '13px',
+    color: t.muted,
     textAlign: 'center',
-    fontWeight: 'bold'
+    margin: '18px 0 0',
+    letterSpacing: '0.02em'
   }
 }
 

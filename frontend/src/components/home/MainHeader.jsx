@@ -1,6 +1,31 @@
+import { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
+import { CART_UPDATED_EVENT, getCartItemCount } from '../../utils/cartStorage'
 import styles from './Home.Styles'
 
 export default function MainHeader() {
+  const location = useLocation()
+  const currentSearchTerm = new URLSearchParams(location.search).get('search') || ''
+  const [cartCount, setCartCount] = useState(getCartItemCount)
+
+  useEffect(() => {
+    function updateCartCount(event) {
+      setCartCount(event.detail?.count ?? getCartItemCount())
+    }
+
+    function updateCartCountFromStorage() {
+      setCartCount(getCartItemCount())
+    }
+
+    window.addEventListener(CART_UPDATED_EVENT, updateCartCount)
+    window.addEventListener('storage', updateCartCountFromStorage)
+
+    return () => {
+      window.removeEventListener(CART_UPDATED_EVENT, updateCartCount)
+      window.removeEventListener('storage', updateCartCountFromStorage)
+    }
+  }, [])
+
   return (
     <header style={styles.header}>
       <div style={styles.brandGroup}>
@@ -19,11 +44,16 @@ export default function MainHeader() {
         </a>
       </div>
 
-      <input
-        type="text"
-        placeholder="Digite aqui para pesquisar"
-        style={styles.search}
-      />
+      <form action="/allproducts" method="get" style={styles.searchForm}>
+        <input
+          key={location.search}
+          type="text"
+          name="search"
+          placeholder="Digite aqui para pesquisar"
+          defaultValue={currentSearchTerm}
+          style={styles.search}
+        />
+      </form>
 
       <nav style={styles.nav}>
         <a href="#destaque" style={styles.navItem}>
@@ -56,6 +86,8 @@ export default function MainHeader() {
               fill="currentColor"
             />
           </svg>
+
+          {cartCount > 0 && <span style={styles.cartBadge}>{cartCount}</span>}
         </a>
       </nav>
     </header>

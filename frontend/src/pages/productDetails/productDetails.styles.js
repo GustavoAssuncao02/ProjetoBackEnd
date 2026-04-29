@@ -170,16 +170,37 @@ const styles = {
   },
 
   buyButton: {
+    alignItems: 'center',
     backgroundColor: '#16a34a',
     border: 'none',
     borderRadius: '8px',
     color: '#fff',
     cursor: 'pointer',
+    display: 'flex',
     fontSize: '18px',
     fontWeight: '800',
+    gap: '10px',
+    justifyContent: 'center',
     marginTop: '8px',
     padding: '15px 18px',
     width: '100%'
+  },
+
+  buyButtonIcon: {
+    alignItems: 'center',
+    display: 'inline-flex',
+    justifyContent: 'center'
+  },
+
+  cartMessage: {
+    backgroundColor: '#dcfce7',
+    borderRadius: '8px',
+    color: '#166534',
+    fontSize: '14px',
+    fontWeight: '800',
+    margin: '-6px 0 0',
+    padding: '12px',
+    textAlign: 'center'
   },
 
   message: {

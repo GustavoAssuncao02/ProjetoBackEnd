@@ -403,87 +403,89 @@ export default function ProductsManager() {
           )}
         </form>
 
-        <table style={styles.table}>
-          <thead>
-            <tr>
-              <th style={styles.th} onClick={() => handleSort('id')}>
-                ID {getSortIndicator('id')}
-              </th>
+        <div style={styles.tableWrapper}>
+          <table style={styles.table}>
+            <thead>
+              <tr>
+                <th style={styles.th} onClick={() => handleSort('id')}>
+                  ID {getSortIndicator('id')}
+                </th>
 
-              <th style={styles.th} onClick={() => handleSort('name')}>
-                Name {getSortIndicator('name')}
-              </th>
+                <th style={styles.th} onClick={() => handleSort('name')}>
+                  Name {getSortIndicator('name')}
+                </th>
 
-              <th style={styles.th} onClick={() => handleSort('description')}>
-                Description {getSortIndicator('description')}
-              </th>
+                <th style={styles.th} onClick={() => handleSort('description')}>
+                  Description {getSortIndicator('description')}
+                </th>
 
-              <th style={styles.th} onClick={() => handleSort('old_price')}>
-                Old Price {getSortIndicator('old_price')}
-              </th>
+                <th style={styles.th} onClick={() => handleSort('old_price')}>
+                  Old Price {getSortIndicator('old_price')}
+                </th>
 
-              <th style={styles.th} onClick={() => handleSort('price')}>
-                Current Price {getSortIndicator('price')}
-              </th>
+                <th style={styles.th} onClick={() => handleSort('price')}>
+                  Current Price {getSortIndicator('price')}
+                </th>
 
-              <th style={styles.th} onClick={() => handleSort('stock')}>
-                Stock {getSortIndicator('stock')}
-              </th>
+                <th style={styles.th} onClick={() => handleSort('stock')}>
+                  Stock {getSortIndicator('stock')}
+                </th>
 
-              <th style={styles.th} onClick={() => handleSort('material')}>
-                Material {getSortIndicator('material')}
-              </th>
+                <th style={styles.th} onClick={() => handleSort('material')}>
+                  Material {getSortIndicator('material')}
+                </th>
 
-              <th style={styles.th} onClick={() => handleSort('category')}>
-                Category {getSortIndicator('category')}
-              </th>
+                <th style={styles.th} onClick={() => handleSort('category')}>
+                  Category {getSortIndicator('category')}
+                </th>
 
-              <th style={styles.th} onClick={() => handleSort('subcategory')}>
-                Subcategory {getSortIndicator('subcategory')}
-              </th>
+                <th style={styles.th} onClick={() => handleSort('subcategory')}>
+                  Subcategory {getSortIndicator('subcategory')}
+                </th>
 
-              <th style={styles.th}>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {sortedProducts.map((product) => (
-              <tr key={product.id}>
-                <td style={styles.td}>{product.id}</td>
-                <td style={styles.td}>{product.name}</td>
-                <td style={styles.td}>{product.description}</td>
-                <td style={styles.td}>
-                  {product.old_price !== null && product.old_price !== undefined
-                    ? `R$ ${Number(product.old_price).toFixed(2)}`
-                    : '-'}
-                </td>
-                <td style={styles.td}>R$ {Number(product.current_price).toFixed(2)}</td>
-                <td style={styles.td}>{product.stock_quantity}</td>
-                <td style={styles.td}>{product.materials?.name || '-'}</td>
-                <td style={styles.td}>{product.categories?.name || '-'}</td>
-                <td style={styles.td}>{product.subcategories?.name || '-'}</td>
-                <td style={styles.td}>
-                  <div style={styles.actions}>
-                    <button
-                      type="button"
-                      style={styles.button}
-                      onClick={() => handleEdit(product)}
-                    >
-                      Edit
-                    </button>
-
-                    <button
-                      type="button"
-                      style={styles.redButton}
-                      onClick={() => handleDelete(product.id)}
-                    >
-                      Delete
-                    </button>
-                  </div>
-                </td>
+                <th style={styles.th}>Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {sortedProducts.map((product) => (
+                <tr key={product.id}>
+                  <td style={styles.td}>{product.id}</td>
+                  <td style={styles.td}>{product.name}</td>
+                  <td style={styles.td}>{product.description}</td>
+                  <td style={styles.td}>
+                    {product.old_price !== null && product.old_price !== undefined
+                      ? `R$ ${Number(product.old_price).toFixed(2)}`
+                      : '-'}
+                  </td>
+                  <td style={styles.td}>R$ {Number(product.current_price).toFixed(2)}</td>
+                  <td style={styles.td}>{product.stock_quantity}</td>
+                  <td style={styles.td}>{product.materials?.name || '-'}</td>
+                  <td style={styles.td}>{product.categories?.name || '-'}</td>
+                  <td style={styles.td}>{product.subcategories?.name || '-'}</td>
+                  <td style={styles.td}>
+                    <div style={styles.actions}>
+                      <button
+                        type="button"
+                        style={styles.button}
+                        onClick={() => handleEdit(product)}
+                      >
+                        Edit
+                      </button>
+
+                      <button
+                        type="button"
+                        style={styles.redButton}
+                        onClick={() => handleDelete(product.id)}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   )

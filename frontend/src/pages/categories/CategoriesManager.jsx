@@ -182,7 +182,7 @@ export default function CategoriesManager() {
 
                     <button
                       type="button"
-                      style={styles.yellowButton}
+                      style={category.activated ? styles.disableButton : styles.activateButton}
                       onClick={() => handleToggle(category.id)}
                     >
                       {category.activated ? 'Disable' : 'Activate'}

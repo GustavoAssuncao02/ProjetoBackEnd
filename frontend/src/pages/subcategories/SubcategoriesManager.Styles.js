@@ -1,89 +1,113 @@
+const t = {
+  fontDisplay: "'Cormorant Garamond', 'Georgia', serif",
+  fontBody: "'Jost', 'Helvetica Neue', Arial, sans-serif",
+  bg: '#F6F4F1',
+  surface: '#FFFFFF',
+  surfaceSoft: '#F9F8F6',
+  border: '#DDD9D3',
+  text: '#141412',
+  muted: '#6E6B66',
+  accent: '#141412',
+  danger: '#7B1D1D',
+  warning: '#8A5A00',
+  success: '#1A4A2E',
+  neutral: '#6E6B66',
+  shadowMd: '0 4px 24px rgba(20,20,18,0.09)'
+}
+
+const inputBase = {
+  fontFamily: t.fontBody,
+  fontSize: '13px',
+  color: t.text,
+  backgroundColor: 'transparent',
+  border: 'none',
+  borderBottom: `1px solid ${t.border}`,
+  borderRadius: 0,
+  padding: '10px 0',
+  outline: 'none',
+  letterSpacing: '0.03em',
+  width: '100%',
+  boxSizing: 'border-box'
+}
+
+const buttonBase = {
+  fontFamily: t.fontBody,
+  fontSize: '12px',
+  fontWeight: '500',
+  letterSpacing: '0.1em',
+  textTransform: 'uppercase',
+  border: 'none',
+  padding: '13px 18px',
+  cursor: 'pointer'
+}
+
 const styles = {
   container: {
     minHeight: '100vh',
-    backgroundColor: '#f4f4f4',
-    padding: '30px'
+    backgroundColor: t.bg,
+    padding: '30px 20px 48px',
+    fontFamily: t.fontBody
   },
   card: {
     maxWidth: '1200px',
+    width: '100%',
     margin: '0 auto',
-    backgroundColor: '#fff',
-    borderRadius: '16px',
-    padding: '24px',
-    boxShadow: '0 4px 15px rgba(0,0,0,0.08)'
+    backgroundColor: t.surface,
+    padding: '52px 48px',
+    boxShadow: t.shadowMd,
+    boxSizing: 'border-box'
   },
   title: {
-    textAlign: 'center',
-    marginBottom: '24px',
-    fontSize: '2.2rem',
-    fontWeight: '700',
-    color: '#000'
+    fontFamily: t.fontDisplay,
+    fontSize: '38px',
+    fontWeight: '400',
+    color: t.text,
+    letterSpacing: '0.04em',
+    margin: '0 0 34px',
+    textAlign: 'center'
   },
   form: {
     display: 'grid',
     gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-    gap: '14px',
+    gap: '18px 24px',
     marginBottom: '28px',
-    alignItems: 'center'
+    alignItems: 'end'
   },
   input: {
-    padding: '14px 12px',
-    borderRadius: '10px',
-    border: '1px solid #cfcfcf',
-    fontSize: '1rem',
-    outline: 'none',
-    backgroundColor: '#fff'
+    ...inputBase
   },
   buttonRow: {
     gridColumn: '1 / -1',
     display: 'flex',
-    gap: '12px',
+    gap: '10px',
     flexWrap: 'wrap'
   },
   filtersRow: {
     display: 'grid',
     gridTemplateColumns: '1.2fr 1fr auto',
-    gap: '12px',
-    marginBottom: '22px',
-    alignItems: 'center'
+    gap: '18px',
+    marginBottom: '28px',
+    alignItems: 'end'
   },
   button: {
-    padding: '12px 18px',
-    borderRadius: '10px',
-    border: 'none',
-    backgroundColor: '#0f172a',
-    color: '#fff',
-    cursor: 'pointer',
-    minWidth: '180px',
-    fontSize: '1rem'
+    ...buttonBase,
+    backgroundColor: t.accent,
+    color: '#FFFFFF'
   },
   yellowButton: {
-    padding: '12px 18px',
-    borderRadius: '10px',
-    border: 'none',
-    backgroundColor: '#ca8a04',
-    color: '#fff',
-    cursor: 'pointer',
-    minWidth: '140px',
-    fontSize: '1rem'
+    ...buttonBase,
+    backgroundColor: t.warning,
+    color: '#FFFFFF'
   },
   redButton: {
-    padding: '10px 14px',
-    borderRadius: '10px',
-    border: 'none',
-    backgroundColor: '#dc2626',
-    color: '#fff',
-    cursor: 'pointer',
-    fontSize: '1rem'
+    ...buttonBase,
+    backgroundColor: t.danger,
+    color: '#FFFFFF'
   },
   clearFilterButton: {
-    padding: '12px 18px',
-    borderRadius: '10px',
-    border: 'none',
-    backgroundColor: '#475569',
-    color: '#fff',
-    cursor: 'pointer',
-    fontSize: '1rem',
+    ...buttonBase,
+    backgroundColor: t.neutral,
+    color: '#FFFFFF',
     whiteSpace: 'nowrap'
   },
   table: {
@@ -92,18 +116,24 @@ const styles = {
   },
   th: {
     textAlign: 'left',
-    borderBottom: '1px solid #ddd',
-    padding: '14px 10px',
-    fontWeight: '700',
-    color: '#000'
+    borderBottom: `1px solid ${t.border}`,
+    color: t.text,
+    fontSize: '12px',
+    fontWeight: '600',
+    letterSpacing: '0.08em',
+    padding: '14px 12px',
+    textTransform: 'uppercase'
   },
   sortableTh: {
     textAlign: 'left',
-    borderBottom: '1px solid #ddd',
-    padding: '14px 10px',
-    fontWeight: '700',
-    color: '#000',
+    borderBottom: `1px solid ${t.border}`,
+    color: t.text,
     cursor: 'pointer',
+    fontSize: '12px',
+    fontWeight: '600',
+    letterSpacing: '0.08em',
+    padding: '14px 12px',
+    textTransform: 'uppercase',
     userSelect: 'none'
   },
   thContent: {
@@ -112,48 +142,44 @@ const styles = {
     gap: '6px'
   },
   sortIcon: {
-    fontSize: '0.9rem',
-    opacity: 0.75
+    color: t.muted,
+    fontSize: '12px'
   },
   td: {
-    borderBottom: '1px solid #eee',
-    padding: '14px 10px',
+    borderBottom: `1px solid ${t.border}`,
+    color: t.text,
+    fontSize: '13px',
+    padding: '14px 12px',
     verticalAlign: 'middle'
   },
   actions: {
     display: 'flex',
-    gap: '10px',
+    gap: '8px',
     flexWrap: 'wrap'
   },
   message: {
-    marginBottom: '16px',
-    fontWeight: '600',
+    color: t.muted,
+    fontSize: '13px',
+    letterSpacing: '0.02em',
+    marginBottom: '18px',
     textAlign: 'center'
   },
   emptyState: {
-    textAlign: 'center',
+    backgroundColor: t.surfaceSoft,
+    color: t.muted,
     padding: '20px',
-    color: '#666'
+    textAlign: 'center'
   },
   grayButton: {
-  padding: '10px 14px',
-  borderRadius: '10px',
-  border: 'none',
-  backgroundColor: '#475569',
-  color: '#fff',
-  cursor: 'pointer',
-  fontSize: '1rem'
-},greenButton: {
-  padding: '10px 14px',
-  borderRadius: '10px',
-  border: 'none',
-  backgroundColor: '#16a34a',
-  color: '#fff',
-  cursor: 'pointer',
-  fontSize: '1rem'
-},
-  
+    ...buttonBase,
+    backgroundColor: t.neutral,
+    color: '#FFFFFF'
+  },
+  greenButton: {
+    ...buttonBase,
+    backgroundColor: t.success,
+    color: '#FFFFFF'
+  }
 }
-
 
 export default styles

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import MenuAdm from '../../components/menu-adm/MenuAdm'
 import styles from './addressesManager.styles'
 
@@ -21,13 +21,7 @@ export default function AddressesManager() {
     country: 'Brazil'
   })
 
-  useEffect(() => {
-    if (token) {
-      loadAddresses()
-    }
-  }, [token])
-
-  async function loadAddresses() {
+  const loadAddresses = useCallback(async () => {
     try {
       const response = await fetch('http://localhost:3000/addresses/me', {
         headers: {
@@ -45,7 +39,13 @@ export default function AddressesManager() {
     } catch (error) {
       setMessage(error.message)
     }
-  }
+  }, [token])
+
+  useEffect(() => {
+    if (token) {
+      loadAddresses()
+    }
+  }, [loadAddresses, token])
 
   function handleChange(e) {
     const { name, value } = e.target
@@ -263,56 +263,58 @@ export default function AddressesManager() {
           )}
         </form>
 
-        <table style={styles.table}>
-          <thead>
-            <tr>
-              <th style={styles.th}>ID</th>
-              <th style={styles.th}>Street</th>
-              <th style={styles.th}>Number</th>
-              <th style={styles.th}>Complement</th>
-              <th style={styles.th}>Neighborhood</th>
-              <th style={styles.th}>City</th>
-              <th style={styles.th}>State</th>
-              <th style={styles.th}>ZIP</th>
-              <th style={styles.th}>Country</th>
-              <th style={styles.th}>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {addresses.map((address) => (
-              <tr key={address.id}>
-                <td style={styles.td}>{address.id}</td>
-                <td style={styles.td}>{address.street}</td>
-                <td style={styles.td}>{address.number}</td>
-                <td style={styles.td}>{address.complement}</td>
-                <td style={styles.td}>{address.neighborhood}</td>
-                <td style={styles.td}>{address.city}</td>
-                <td style={styles.td}>{address.state}</td>
-                <td style={styles.td}>{address.zip_code}</td>
-                <td style={styles.td}>{address.country}</td>
-                <td style={styles.td}>
-                  <div style={styles.actions}>
-                    <button
-                      type="button"
-                      style={styles.button}
-                      onClick={() => handleEdit(address)}
-                    >
-                      Edit
-                    </button>
-
-                    <button
-                      type="button"
-                      style={styles.redButton}
-                      onClick={() => handleDelete(address.id)}
-                    >
-                      Delete
-                    </button>
-                  </div>
-                </td>
+        <div style={styles.tableWrapper}>
+          <table style={styles.table}>
+            <thead>
+              <tr>
+                <th style={styles.th}>ID</th>
+                <th style={styles.th}>Street</th>
+                <th style={styles.th}>Number</th>
+                <th style={styles.th}>Complement</th>
+                <th style={styles.th}>Neighborhood</th>
+                <th style={styles.th}>City</th>
+                <th style={styles.th}>State</th>
+                <th style={styles.th}>ZIP</th>
+                <th style={styles.th}>Country</th>
+                <th style={styles.th}>Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {addresses.map((address) => (
+                <tr key={address.id}>
+                  <td style={styles.td}>{address.id}</td>
+                  <td style={styles.td}>{address.street}</td>
+                  <td style={styles.td}>{address.number}</td>
+                  <td style={styles.td}>{address.complement}</td>
+                  <td style={styles.td}>{address.neighborhood}</td>
+                  <td style={styles.td}>{address.city}</td>
+                  <td style={styles.td}>{address.state}</td>
+                  <td style={styles.td}>{address.zip_code}</td>
+                  <td style={styles.td}>{address.country}</td>
+                  <td style={styles.td}>
+                    <div style={styles.actions}>
+                      <button
+                        type="button"
+                        style={styles.button}
+                        onClick={() => handleEdit(address)}
+                      >
+                        Edit
+                      </button>
+
+                      <button
+                        type="button"
+                        style={styles.redButton}
+                        onClick={() => handleDelete(address.id)}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   )

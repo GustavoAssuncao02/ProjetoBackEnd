@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import MainHeader from '../../components/home/MainHeader'
 import styles from './allProducts.styles'
 
@@ -11,7 +11,15 @@ const sortOptions = [
   { label: 'Adicionado recentemente', value: 'recent' }
 ]
 
+function normalizeText(value) {
+  return String(value || '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+}
+
 export default function AllProducts() {
+  const [searchParams] = useSearchParams()
   const [products, setProducts] = useState([])
   const [variants, setVariants] = useState([])
   const [filters, setFilters] = useState({
@@ -22,6 +30,7 @@ export default function AllProducts() {
     availableOnly: false
   })
   const [message, setMessage] = useState('')
+  const searchTerm = searchParams.get('search')?.trim() || ''
 
   useEffect(() => {
     loadCatalog()
@@ -121,8 +130,11 @@ export default function AllProducts() {
   }, [variants])
 
   const filteredProducts = useMemo(() => {
+    const normalizedSearch = normalizeText(searchTerm)
     const filtered = products.filter((product) => {
       const productVariants = variantsByProductId[String(product.id)] || []
+      const matchesSearch =
+        !normalizedSearch || normalizeText(product.name).includes(normalizedSearch)
       const matchesCategory =
         filters.categoryIds.length === 0 ||
         filters.categoryIds.includes(String(product.category_id))
@@ -135,7 +147,13 @@ export default function AllProducts() {
       const productIsAvailable = Boolean(productAvailabilityById[String(product.id)])
       const matchesAvailability = !filters.availableOnly || productIsAvailable
 
-      return matchesCategory && matchesSubcategory && matchesColor && matchesAvailability
+      return (
+        matchesSearch &&
+        matchesCategory &&
+        matchesSubcategory &&
+        matchesColor &&
+        matchesAvailability
+      )
     })
 
     return filtered.sort((a, b) => {
@@ -157,7 +175,7 @@ export default function AllProducts() {
 
       return (a.name || '').localeCompare(b.name || '')
     })
-  }, [filters, productAvailabilityById, products, variantsByProductId])
+  }, [filters, productAvailabilityById, products, searchTerm, variantsByProductId])
 
   function handleSortChange(e) {
     setFilters((prev) => ({
@@ -302,6 +320,12 @@ export default function AllProducts() {
             </select>
           </div>
         </div>
+
+        {searchTerm && (
+          <p style={styles.searchResultLabel}>
+            Resultado da busca por "{searchTerm}"
+          </p>
+        )}
 
         {message && <p style={styles.message}>{message}</p>}
 

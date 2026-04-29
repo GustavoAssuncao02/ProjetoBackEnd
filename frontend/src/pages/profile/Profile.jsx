@@ -169,6 +169,12 @@ export default function EditProfile() {
     }
   }
 
+  function handleLogout() {
+    localStorage.removeItem('token')
+    localStorage.removeItem('user')
+    window.location.href = '/login'
+  }
+
   if (fetching) {
     return (
       <div style={styles.container}>
@@ -318,6 +324,10 @@ export default function EditProfile() {
             </div>
           </div>
         )}
+
+        <button type="button" style={styles.logoutButton} onClick={handleLogout}>
+          Sair da conta
+        </button>
 
         {message && <p style={styles.message}>{message}</p>}
       </div>

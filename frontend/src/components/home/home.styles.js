@@ -91,17 +91,29 @@ const styles = {
     whiteSpace: 'nowrap'
   },
 
+  searchForm: {
+    alignItems: 'center',
+    backgroundColor: '#f5f5f5',
+    borderRadius: '22px',
+    display: 'flex',
+    flex: '1 1 620px',
+    maxWidth: '720px',
+    minWidth: '420px',
+    margin: 0,
+    overflow: 'hidden'
+  },
+
   search: {
+    boxSizing: 'border-box',
     flex: 1,
-    minWidth: '180px',
-    maxWidth: '320px',
     padding: '10px 14px',
-    borderRadius: '20px',
+    borderRadius: 0,
     border: 'none',
     outline: 'none',
-    backgroundColor: '#f5f5f5',
+    backgroundColor: 'transparent',
     color: '#111',
-    fontSize: '14px'
+    fontSize: '14px',
+    width: '100%'
   },
 
   nav: {
@@ -121,6 +133,7 @@ const styles = {
   },
 
   cartLink: {
+    position: 'relative',
     color: '#fff',
     textDecoration: 'none',
     display: 'flex',
@@ -131,6 +144,23 @@ const styles = {
 
   cartIcon: {
     display: 'block'
+  },
+
+  cartBadge: {
+    alignItems: 'center',
+    backgroundColor: '#dc2626',
+    borderRadius: '999px',
+    color: '#fff',
+    display: 'flex',
+    fontSize: '11px',
+    fontWeight: '900',
+    height: '18px',
+    justifyContent: 'center',
+    minWidth: '18px',
+    padding: '0 5px',
+    position: 'absolute',
+    right: '-10px',
+    top: '-10px'
   },
 
   infoBar: {

@@ -33,6 +33,13 @@ const styles = {
     gap: '10px'
   },
 
+  searchResultLabel: {
+    color: '#4b5563',
+    fontSize: '14px',
+    fontWeight: '700',
+    margin: '-8px 0 18px'
+  },
+
   label: {
     color: '#374151',
     fontSize: '14px',
