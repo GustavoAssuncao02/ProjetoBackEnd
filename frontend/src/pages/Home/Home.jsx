@@ -2,6 +2,7 @@ import MainHeader from '../../components/home/MainHeader'
 import InfoBar from '../../components/home/InfoBar'
 import HeroBanner from '../../components/home/HeroBanner'
 import ProductHighlights from '../../components/home/ProductHighlights'
+import ProductCarousel from '../../components/product-carousel/ProductCarousel'
 import SectionTitle from '../../components/home/SectionTitle'
 import styles from '../../components/home/Home.Styles'
 import homeSections from '../../config/HomeSections'
@@ -11,6 +12,13 @@ const sectionMap = {
   'info-bar': <InfoBar />,
   'hero-banner': <HeroBanner />,
   'product-highlights': <ProductHighlights />,
+  'product-carousel': (
+    <div style={styles.homeCarousel}>
+      <div style={styles.homeCarouselInner}>
+        <ProductCarousel showHeader={false} />
+      </div>
+    </div>
+  ),
   'location-title': <SectionTitle title="LOCALIZAÇÃO" />
 }
 

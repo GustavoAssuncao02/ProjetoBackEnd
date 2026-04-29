@@ -1,57 +1,100 @@
+const t = {
+  fontDisplay: "'Cormorant Garamond', 'Georgia', serif",
+  fontBody: "'Jost', 'Helvetica Neue', Arial, sans-serif",
+  bg: '#F6F4F1', surface: '#FFFFFF', border: '#DDD9D3',
+  text: '#141412', muted: '#6E6B66', accent: '#141412',
+  danger: '#7B1D1D', success: '#1A4A2E',
+  shadowMd: '0 4px 24px rgba(20,20,18,0.09)',
+}
+
 const styles = {
   container: {
     minHeight: '100vh',
+    backgroundColor: t.bg,
     display: 'flex',
-    justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#f4f4f4',
-    padding: '20px'
+    justifyContent: 'center',
+    fontFamily: t.fontBody,
+    padding: '40px 20px',
   },
   card: {
+    backgroundColor: t.surface,
+    padding: '56px 48px',
     width: '100%',
     maxWidth: '420px',
-    backgroundColor: '#fff',
-    borderRadius: '12px',
-    padding: '30px',
-    boxShadow: '0 4px 15px rgba(0,0,0,0.1)'
+    boxShadow: t.shadowMd,
   },
   title: {
+    fontFamily: t.fontDisplay,
+    fontSize: '36px',
+    fontWeight: '400',
+    color: t.text,
+    letterSpacing: '0.04em',
+    marginBottom: '36px',
     textAlign: 'center',
-    marginBottom: '20px'
   },
   form: {
     display: 'flex',
     flexDirection: 'column',
-    gap: '12px'
+    gap: '16px',
   },
   input: {
-    padding: '12px',
-    borderRadius: '8px',
-    border: '1px solid #ccc',
-    fontSize: '14px'
+    fontFamily: t.fontBody,
+    fontSize: '13px',
+    color: t.text,
+    backgroundColor: 'transparent',
+    border: 'none',
+    borderBottom: `1px solid ${t.border}`,
+    padding: '10px 0',
+    outline: 'none',
+    letterSpacing: '0.03em',
+    width: '100%',
   },
   button: {
-    padding: '12px',
-    borderRadius: '8px',
+    fontFamily: t.fontBody,
+    fontSize: '12px',
+    fontWeight: '500',
+    letterSpacing: '0.12em',
+    textTransform: 'uppercase',
+    color: '#FFFFFF',
+    backgroundColor: t.accent,
     border: 'none',
-    backgroundColor: '#111827',
-    color: '#fff',
-    fontSize: '16px',
-    cursor: 'pointer'
+    padding: '14px 0',
+    cursor: 'pointer',
+    marginTop: '8px',
+    width: '100%',
   },
   message: {
-    marginTop: '15px',
+    fontFamily: t.fontBody,
+    fontSize: '13px',
+    color: t.muted,
     textAlign: 'center',
-    fontWeight: 'bold'
+    margin: '12px 0 0',
   },
   tokenBox: {
-    marginTop: '20px',
+    fontFamily: t.fontBody,
+    fontSize: '11px',
+    color: t.muted,
+    backgroundColor: '#F9F8F6',
+    border: `1px solid ${t.border}`,
     padding: '12px',
-    backgroundColor: '#f9fafb',
-    borderRadius: '8px',
-    wordBreak: 'break-word',
-    fontSize: '12px'
-  }
+    marginTop: '16px',
+    wordBreak: 'break-all',
+    lineHeight: '1.6',
+  },
+  registerRedirect: {
+    fontFamily: t.fontBody,
+    fontSize: '12px',
+    color: t.muted,
+    textAlign: 'center',
+    marginTop: '20px',
+    letterSpacing: '0.02em',
+  },
+  registerLink: {
+    color: t.text,
+    textDecoration: 'underline',
+    textUnderlineOffset: '3px',
+  },
 }
 
 export default styles

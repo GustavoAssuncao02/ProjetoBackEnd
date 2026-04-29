@@ -1,0 +1,42 @@
+.product-carousel-track {
+  will-change: opacity, transform;
+}
+
+.product-carousel-track--next {
+  animation: product-carousel-enter-next 320ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.product-carousel-track--previous {
+  animation: product-carousel-enter-previous 320ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes product-carousel-enter-next {
+  from {
+    opacity: 0.35;
+    transform: translateX(26px) scale(0.99);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes product-carousel-enter-previous {
+  from {
+    opacity: 0.35;
+    transform: translateX(-26px) scale(0.99);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .product-carousel-track--next,
+  .product-carousel-track--previous {
+    animation: none;
+  }
+}

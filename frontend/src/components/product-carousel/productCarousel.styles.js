@@ -1,7 +1,8 @@
 const styles = {
   section: {
     marginTop: '28px',
-    overflow: 'hidden'
+    overflow: 'hidden',
+    width: '100%'
   },
 
   header: {
@@ -10,6 +11,13 @@ const styles = {
     justifyContent: 'space-between',
     gap: '16px',
     marginBottom: '14px'
+  },
+
+  carouselArea: {
+    alignItems: 'center',
+    display: 'flex',
+    gap: '14px',
+    width: '100%'
   },
 
   title: {
@@ -26,11 +34,6 @@ const styles = {
     margin: 0
   },
 
-  controls: {
-    display: 'flex',
-    gap: '8px'
-  },
-
   arrowButton: {
     alignItems: 'center',
     backgroundColor: '#111827',
@@ -39,15 +42,17 @@ const styles = {
     color: '#fff',
     cursor: 'pointer',
     display: 'flex',
+    flexShrink: 0,
     fontSize: '20px',
     fontWeight: '900',
-    height: '40px',
+    height: '42px',
     justifyContent: 'center',
     lineHeight: 1,
-    width: '40px'
+    width: '42px'
   },
 
   viewport: {
+    flex: 1,
     overflow: 'hidden',
     width: '100%'
   },

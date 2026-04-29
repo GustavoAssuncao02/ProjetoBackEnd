@@ -19,6 +19,7 @@ const path = require('path')
 const productImageRoutes = require('./routes/productImages')
 const addressRoutes = require('./routes/addresses')
 const paymentRoutes = require('./routes/payments')
+const materialRoutes = require('./routes/materials')
 
 
 app.use('/uploads', express.static(path.resolve(__dirname, '../uploads')))
@@ -37,6 +38,7 @@ app.use('/variants', variantRoutes)
 app.use('/cart-items', cartItemRoutes)
 app.use('/addresses', addressRoutes)
 app.use('/payments', paymentRoutes)
+app.use('/materials', materialRoutes)
 app.use('/subcategories', subcategoriesRoutes);
 app.use(errorMiddleware)
 const swaggerUi = require('swagger-ui-express')

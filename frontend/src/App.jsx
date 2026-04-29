@@ -12,6 +12,7 @@ import SubcategoriesManager from './pages/subcategories/SubcategoriesManager'
 import Register from './pages/register/RegisterUser'
 import AllProducts from './pages/allproducts/AllProducts'
 import ProductDetails from './pages/productDetails/ProductDetails'
+import MaterialsManager from './pages/materials/MaterialsManager'
 function App() {
   return (
     <BrowserRouter>
@@ -21,6 +22,7 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         <Route path="/categories" element={<CategoriesManager />} />
         <Route path="/products" element={<ProductsManager />} />
+        <Route path="/materials" element={<MaterialsManager />} />
         <Route path="/products/variant" element={<VariantsManager />} />
         <Route path="/addresses" element={<AddressesManager />} />
         <Route path="/products/:id/reviews" element={<ProductReviews />} />

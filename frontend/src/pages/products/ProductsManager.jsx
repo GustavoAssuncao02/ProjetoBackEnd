@@ -9,6 +9,7 @@ export default function ProductsManager() {
   })
   const [products, setProducts] = useState([])
   const [categories, setCategories] = useState([])
+  const [materials, setMaterials] = useState([])
   const [editingId, setEditingId] = useState(null)
   const [message, setMessage] = useState('')
   const [loading, setLoading] = useState(false)
@@ -18,6 +19,7 @@ export default function ProductsManager() {
     description: '',
     old_price: '',
     current_price: '',
+    material_id: '',
     category_id: '',
     subcategory_id: ''
   })
@@ -25,6 +27,7 @@ export default function ProductsManager() {
   useEffect(() => {
     loadProducts()
     loadCategories()
+    loadMaterials()
   }, [])
 
   async function loadProducts() {
@@ -41,6 +44,59 @@ export default function ProductsManager() {
       setMessage(error.message)
     }
   }
+
+  async function loadCategories() {
+    try {
+      const response = await fetch('http://localhost:3000/categories')
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Error loading categories')
+      }
+
+      setCategories(data.filter((category) => category.activated === true))
+    } catch (error) {
+      setMessage(error.message)
+    }
+  }
+
+  async function loadMaterials() {
+    try {
+      const response = await fetch('http://localhost:3000/materials')
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Error loading materials')
+      }
+
+      setMaterials(data.filter((material) => material.activated === true))
+    } catch (error) {
+      setMessage(error.message)
+    }
+  }
+
+  async function loadSubcategories(categoryId) {
+    if (!categoryId) {
+      setSubcategories([])
+      return
+    }
+
+    try {
+      const response = await fetch(
+        `http://localhost:3000/subcategories/by-category?category_id=${categoryId}`
+      )
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Error loading subcategories')
+      }
+
+      setSubcategories(data.subcategories)
+    } catch (error) {
+      setMessage(error.message)
+    }
+  }
+
   function handleSort(key) {
     setSortConfig((prev) => {
       if (prev.key === key) {
@@ -56,10 +112,12 @@ export default function ProductsManager() {
       }
     })
   }
+
   function getSortIndicator(columnKey) {
     if (sortConfig.key !== columnKey) return '↕'
     return sortConfig.direction === 'asc' ? '↑' : '↓'
   }
+
   const sortedProducts = [...products].sort((a, b) => {
     let valueA
     let valueB
@@ -69,6 +127,7 @@ export default function ProductsManager() {
         valueA = a.id
         valueB = b.id
         break
+
       case 'old_price':
         valueA = a.old_price ?? 0
         valueB = b.old_price ?? 0
@@ -89,6 +148,11 @@ export default function ProductsManager() {
         valueB = b.current_price
         break
 
+      case 'material':
+        valueA = a.materials?.name?.toLowerCase() || ''
+        valueB = b.materials?.name?.toLowerCase() || ''
+        break
+
       case 'category':
         valueA = a.categories?.name?.toLowerCase() || ''
         valueB = b.categories?.name?.toLowerCase() || ''
@@ -98,6 +162,7 @@ export default function ProductsManager() {
         valueA = a.subcategories?.name?.toLowerCase() || ''
         valueB = b.subcategories?.name?.toLowerCase() || ''
         break
+
       case 'description':
         valueA = a.description?.toLowerCase() || ''
         valueB = b.description?.toLowerCase() || ''
@@ -113,40 +178,24 @@ export default function ProductsManager() {
     return 0
   })
 
-  async function loadCategories() {
-    try {
-      const response = await fetch('http://localhost:3000/categories')
-      const data = await response.json()
-
-      if (!response.ok) {
-        throw new Error(data.error || 'Error loading categories')
-      }
-
-      const onlyActive = data.filter((category) => category.activated === true)
-      setCategories(onlyActive)
-    } catch (error) {
-      setMessage(error.message)
-    }
-  }
-
   function handleChange(e) {
     const { name, value } = e.target
+
+    if (name === 'category_id') {
+      setFormData((prev) => ({
+        ...prev,
+        category_id: value,
+        subcategory_id: ''
+      }))
+
+      loadSubcategories(value)
+      return
+    }
 
     setFormData((prev) => ({
       ...prev,
       [name]: value
     }))
-
-    // 👇 SE MUDAR CATEGORIA, CARREGA SUBCATEGORIA
-    if (name === 'category_id') {
-      setFormData((prev) => ({
-        ...prev,
-        category_id: value,
-        subcategory_id: '' // limpa subcategoria
-      }))
-
-      loadSubcategories(value)
-    }
   }
 
   async function handleSubmit(e) {
@@ -166,8 +215,9 @@ export default function ProductsManager() {
         description: formData.description,
         old_price: formData.old_price === '' ? null : Number(formData.old_price),
         current_price: Number(formData.current_price),
+        material_id: Number(formData.material_id),
         category_id: Number(formData.category_id),
-        subcategory_id: Number(formData.subcategory_id) // 👈 NOVO
+        subcategory_id: formData.subcategory_id ? Number(formData.subcategory_id) : null
       }
 
       const response = await fetch(url, {
@@ -201,10 +251,11 @@ export default function ProductsManager() {
       description: product.description || '',
       old_price: product.old_price ?? '',
       current_price: product.current_price ?? '',
+      material_id: product.material_id || product.materials?.id || '',
       category_id: product.category_id || '',
-      subcategory_id: product.subcategory_id || '' // 👈 NOVO
+      subcategory_id: product.subcategory_id || ''
     })
-    loadSubcategories(product.category_id) // 👈 IMPORTANTE
+    loadSubcategories(product.category_id)
     setMessage('')
   }
 
@@ -215,8 +266,9 @@ export default function ProductsManager() {
       description: '',
       old_price: '',
       current_price: '',
+      material_id: '',
       category_id: '',
-      subcategory_id: '' // 👈 NOVO
+      subcategory_id: ''
     })
   }
 
@@ -235,38 +287,12 @@ export default function ProductsManager() {
         throw new Error(data.error || 'Error deleting product')
       }
 
-      setMessage('Produto deletado com sucesso')
+      setMessage('Product deleted successfully!')
       loadProducts()
 
       if (editingId === id) {
         resetForm()
       }
-    } catch (error) {
-      setMessage(error.message)
-    }
-  }
-
-  function getCategoryName(categoryId) {
-    const category = categories.find((item) => item.id === categoryId)
-    return category ? category.name : `Category #${categoryId}`
-  }
-  async function loadSubcategories(categoryId) {
-    if (!categoryId) {
-      setSubcategories([])
-      return
-    }
-
-    try {
-      const response = await fetch(
-        `http://localhost:3000/subcategories/by-category?category_id=${categoryId}`
-      )
-      const data = await response.json()
-
-      if (!response.ok) {
-        throw new Error(data.error || 'Error loading subcategories')
-      }
-
-      setSubcategories(data.subcategories)
     } catch (error) {
       setMessage(error.message)
     }
@@ -312,6 +338,22 @@ export default function ProductsManager() {
             style={styles.input}
             required
           />
+
+          <select
+            name="material_id"
+            value={formData.material_id}
+            onChange={handleChange}
+            style={styles.input}
+            required
+          >
+            <option value="">Select a material</option>
+            {materials.map((material) => (
+              <option key={material.id} value={material.id}>
+                {material.name}
+              </option>
+            ))}
+          </select>
+
           <select
             name="category_id"
             value={formData.category_id}
@@ -326,6 +368,7 @@ export default function ProductsManager() {
               </option>
             ))}
           </select>
+
           <select
             name="subcategory_id"
             value={formData.subcategory_id}
@@ -334,7 +377,6 @@ export default function ProductsManager() {
             required
           >
             <option value="">Select a subcategory</option>
-
             {subcategories.map((sub) => (
               <option key={sub.id} value={sub.id}>
                 {sub.name}
@@ -388,6 +430,10 @@ export default function ProductsManager() {
                 Stock {getSortIndicator('stock')}
               </th>
 
+              <th style={styles.th} onClick={() => handleSort('material')}>
+                Material {getSortIndicator('material')}
+              </th>
+
               <th style={styles.th} onClick={() => handleSort('category')}>
                 Category {getSortIndicator('category')}
               </th>
@@ -412,6 +458,7 @@ export default function ProductsManager() {
                 </td>
                 <td style={styles.td}>R$ {Number(product.current_price).toFixed(2)}</td>
                 <td style={styles.td}>{product.stock_quantity}</td>
+                <td style={styles.td}>{product.materials?.name || '-'}</td>
                 <td style={styles.td}>{product.categories?.name || '-'}</td>
                 <td style={styles.td}>{product.subcategories?.name || '-'}</td>
                 <td style={styles.td}>

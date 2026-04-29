@@ -1,93 +1,103 @@
+const t = {
+  fontDisplay: "'Cormorant Garamond', 'Georgia', serif",
+  fontBody: "'Jost', 'Helvetica Neue', Arial, sans-serif",
+  bg: '#F6F4F1', surface: '#FFFFFF', border: '#DDD9D3',
+  text: '#141412', muted: '#6E6B66', accent: '#141412',
+  danger: '#7B1D1D', dangerBg: '#FAF0EF',
+  success: '#1A4A2E', successBg: '#F0F7F2',
+  shadowMd: '0 4px 24px rgba(20,20,18,0.09)',
+}
+
 const styles = {
   page: {
     minHeight: '100vh',
-    backgroundColor: '#f4f4f5',
+    backgroundColor: t.bg,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    fontFamily: 'Arial, sans-serif',
-    padding: '22px 80px',
-    boxSizing: 'border-box'
+    fontFamily: t.fontBody,
+    padding: '60px 20px',
   },
-
   card: {
+    backgroundColor: t.surface,
+    padding: '56px 48px',
     width: '100%',
-    maxWidth: '760px',
-    minHeight: '520px',
-    backgroundColor: '#fff',
-    borderRadius: '10px',
-    padding: '26px 28px',
-    boxShadow: '0 4px 18px rgba(0, 0, 0, 0.12)',
+    maxWidth: '460px',
+    boxShadow: t.shadowMd,
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'center',
-    gap: '11px'
+    gap: '0',
   },
-
   title: {
-    margin: '0 0 16px',
+    fontFamily: t.fontDisplay,
+    fontSize: '36px',
+    fontWeight: '400',
+    color: t.text,
+    letterSpacing: '0.04em',
+    marginBottom: '32px',
     textAlign: 'center',
-    fontSize: '32px',
-    fontWeight: '700',
-    color: '#000'
   },
-
   input: {
-    width: '100%',
-    height: '40px',
-    border: '1px solid #c9c9c9',
-    borderRadius: '6px',
-    padding: '0 11px',
-    fontSize: '14px',
-    outline: 'none',
-    boxSizing: 'border-box',
-    backgroundColor: '#fff',
-    color: '#000'
-  },
-
-  button: {
-    width: '100%',
-    height: '40px',
+    fontFamily: t.fontBody,
+    fontSize: '13px',
+    color: t.text,
+    backgroundColor: 'transparent',
     border: 'none',
-    borderRadius: '6px',
-    backgroundColor: '#111827',
-    color: '#fff',
-    fontSize: '14px',
-    fontWeight: '600',
+    borderBottom: `1px solid ${t.border}`,
+    padding: '10px 0',
+    outline: 'none',
+    letterSpacing: '0.02em',
+    width: '100%',
+    marginBottom: '16px',
+    display: 'block',
+  },
+  button: {
+    fontFamily: t.fontBody,
+    fontSize: '12px',
+    fontWeight: '500',
+    letterSpacing: '0.12em',
+    textTransform: 'uppercase',
+    color: '#FFFFFF',
+    backgroundColor: t.accent,
+    border: 'none',
+    padding: '14px 0',
     cursor: 'pointer',
-    marginTop: '2px'
+    marginTop: '12px',
+    width: '100%',
   },
-
   error: {
-    backgroundColor: '#fee2e2',
-    color: '#991b1b',
-    borderRadius: '6px',
-    padding: '10px',
-    fontSize: '14px',
-    textAlign: 'center'
+    fontFamily: t.fontBody,
+    fontSize: '12px',
+    color: t.danger,
+    backgroundColor: t.dangerBg,
+    border: `1px solid ${t.danger}20`,
+    padding: '10px 14px',
+    marginBottom: '16px',
+    letterSpacing: '0.02em',
   },
-
   success: {
-    backgroundColor: '#dcfce7',
-    color: '#166534',
-    borderRadius: '6px',
-    padding: '10px',
-    fontSize: '14px',
-    textAlign: 'center'
+    fontFamily: t.fontBody,
+    fontSize: '12px',
+    color: t.success,
+    backgroundColor: t.successBg,
+    border: `1px solid ${t.success}20`,
+    padding: '10px 14px',
+    marginBottom: '16px',
+    letterSpacing: '0.02em',
   },
-
   loginRedirect: {
-    marginTop: '10px',
+    fontFamily: t.fontBody,
+    fontSize: '12px',
+    color: t.muted,
     textAlign: 'center',
-    fontSize: '14px',
-    color: '#333'
+    marginTop: '20px',
+    letterSpacing: '0.02em',
   },
-
   loginLink: {
-    color: '#000',
-    fontWeight: 'bold',
-    textDecoration: 'none'
-  }
+    color: t.text,
+    textDecoration: 'underline',
+    textUnderlineOffset: '3px',
+  },
 }
 
 export default styles

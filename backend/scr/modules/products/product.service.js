@@ -14,8 +14,20 @@ class ProductService {
       throw new Error('Category id is required')
     }
 
+    if (data.material_id === undefined || data.material_id === null || data.material_id === '') {
+      throw new Error('Material id is required')
+    }
+
+    delete data.material
     data.current_price = Number(data.current_price)
     data.category_id = Number(data.category_id)
+    data.material_id = Number(data.material_id)
+
+    if (data.subcategory_id !== undefined && data.subcategory_id !== null && data.subcategory_id !== '') {
+      data.subcategory_id = Number(data.subcategory_id)
+    } else {
+      data.subcategory_id = null
+    }
 
     if (data.old_price !== undefined && data.old_price !== null && data.old_price !== '') {
       data.old_price = Number(data.old_price)
@@ -23,7 +35,6 @@ class ProductService {
       data.old_price = null
     }
 
-    // estoque do produto sempre começa em 0
     data.stock_quantity = 0
 
     return productRepository.create(data)
@@ -66,7 +77,20 @@ class ProductService {
       data.category_id = Number(data.category_id)
     }
 
-    // impede alteração manual
+    if (data.subcategory_id !== undefined) {
+      data.subcategory_id =
+        data.subcategory_id === '' || data.subcategory_id === null ? null : Number(data.subcategory_id)
+    }
+
+    if (data.material_id !== undefined) {
+      if (data.material_id === '' || data.material_id === null) {
+        throw new Error('Material id is required')
+      }
+
+      data.material_id = Number(data.material_id)
+    }
+
+    delete data.material
     delete data.stock_quantity
 
     return productRepository.updateById(id, data)

@@ -187,6 +187,20 @@ const styles = {
     backgroundColor: '#fff'
   },
 
+  homeCarousel: {
+    backgroundColor: '#fff',
+    boxSizing: 'border-box',
+    padding: '32px clamp(32px, 7vw, 96px) 42px',
+    width: '100%'
+  },
+
+  homeCarouselInner: {
+    boxSizing: 'border-box',
+    margin: '0 auto',
+    maxWidth: '1160px',
+    width: '100%'
+  },
+
   card: {
     textAlign: 'center'
   },

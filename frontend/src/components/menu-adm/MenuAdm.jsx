@@ -6,6 +6,7 @@ const menuItems = [
   { label: 'Subcategories', path: '/subcategories-manager' },
   { label: 'Profile', path: '/profile' },
   { label: 'Products Manager', path: '/products' },
+  { label: 'Materials', path: '/materials' },
   { label: 'Categories', path: '/categories' },
   { label: 'Address', path: '/addresses' }
 ]

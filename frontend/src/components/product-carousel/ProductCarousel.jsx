@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
+import './ProductCarousel.css'
 import styles from './productCarousel.styles'
 
 function getDriveFileId(url) {
@@ -77,12 +78,14 @@ function shuffleProducts(products) {
 export default function ProductCarousel({
   currentProduct = null,
   currentColors = [],
-  title = 'Produtos parecidos'
+  title = 'Produtos parecidos',
+  showHeader = true
 }) {
   const [products, setProducts] = useState([])
   const [variants, setVariants] = useState([])
   const [message, setMessage] = useState('')
   const [currentIndex, setCurrentIndex] = useState(0)
+  const [animationDirection, setAnimationDirection] = useState('idle')
 
   useEffect(() => {
     async function loadCatalog() {
@@ -185,6 +188,7 @@ export default function ProductCarousel({
 
   useEffect(() => {
     setCurrentIndex(0)
+    setAnimationDirection('idle')
   }, [orderedProducts])
 
   const visibleProducts = useMemo(() => {
@@ -201,6 +205,7 @@ export default function ProductCarousel({
   }, [currentIndex, orderedProducts])
 
   function goToPreviousProducts() {
+    setAnimationDirection('previous')
     setCurrentIndex((prev) => {
       if (orderedProducts.length === 0) {
         return 0
@@ -211,6 +216,7 @@ export default function ProductCarousel({
   }
 
   function goToNextProducts() {
+    setAnimationDirection('next')
     setCurrentIndex((prev) => {
       if (orderedProducts.length === 0) {
         return 0
@@ -246,68 +252,76 @@ export default function ProductCarousel({
 
   return (
     <section style={styles.section}>
-      <div style={styles.header}>
-        <div>
-          <h2 style={styles.title}>{title}</h2>
-          <p style={styles.subtitle}>Outras roupas do catálogo selecionadas para você</p>
-        </div>
-
-        {orderedProducts.length > 4 && (
-          <div style={styles.controls}>
-            <button
-              type="button"
-              style={styles.arrowButton}
-              onClick={goToPreviousProducts}
-              aria-label="Ver produtos anteriores"
-            >
-              &lt;
-            </button>
-
-            <button
-              type="button"
-              style={styles.arrowButton}
-              onClick={goToNextProducts}
-              aria-label="Ver próximos produtos"
-            >
-              &gt;
-            </button>
+      {showHeader && (
+        <div style={styles.header}>
+          <div>
+            <h2 style={styles.title}>{title}</h2>
+            <p style={styles.subtitle}>Outras roupas do catálogo selecionadas para você</p>
           </div>
-        )}
-      </div>
-
-      <div style={styles.viewport}>
-        <div style={styles.track}>
-          {visibleProducts.map((product) => {
-            const imageUrl = getProductImage(product)
-
-            return (
-              <Link key={product.id} to={`/allproducts/${product.id}`} style={styles.link}>
-                <article style={styles.card}>
-                  <div style={styles.imageWrap}>
-                    {imageUrl ? (
-                      <img
-                        src={imageUrl}
-                        alt={product.name}
-                        style={styles.image}
-                        referrerPolicy="no-referrer"
-                        onError={(e) => {
-                          e.currentTarget.style.display = 'none'
-                        }}
-                      />
-                    ) : (
-                      <div style={styles.noImage}>Sem imagem</div>
-                    )}
-                  </div>
-
-                  <div style={styles.info}>
-                    <h3 style={styles.name}>{product.name}</h3>
-                    <p style={styles.price}>{renderPrice(product)}</p>
-                  </div>
-                </article>
-              </Link>
-            )
-          })}
         </div>
+      )}
+
+      <div style={styles.carouselArea}>
+        {orderedProducts.length > 1 && (
+          <button
+            type="button"
+            style={styles.arrowButton}
+            onClick={goToPreviousProducts}
+            aria-label="Ver produtos anteriores"
+          >
+            &lt;
+          </button>
+        )}
+
+        <div style={styles.viewport}>
+          <div
+            key={`${currentIndex}-${animationDirection}`}
+            className={`product-carousel-track product-carousel-track--${animationDirection}`}
+            style={styles.track}
+          >
+            {visibleProducts.map((product) => {
+              const imageUrl = getProductImage(product)
+
+              return (
+                <Link key={product.id} to={`/allproducts/${product.id}`} style={styles.link}>
+                  <article style={styles.card}>
+                    <div style={styles.imageWrap}>
+                      {imageUrl ? (
+                        <img
+                          src={imageUrl}
+                          alt={product.name}
+                          style={styles.image}
+                          referrerPolicy="no-referrer"
+                          onError={(e) => {
+                            e.currentTarget.style.display = 'none'
+                          }}
+                        />
+                      ) : (
+                        <div style={styles.noImage}>Sem imagem</div>
+                      )}
+                    </div>
+
+                    <div style={styles.info}>
+                      <h3 style={styles.name}>{product.name}</h3>
+                      <p style={styles.price}>{renderPrice(product)}</p>
+                    </div>
+                  </article>
+                </Link>
+              )
+            })}
+          </div>
+        </div>
+
+        {orderedProducts.length > 1 && (
+          <button
+            type="button"
+            style={styles.arrowButton}
+            onClick={goToNextProducts}
+            aria-label="Ver próximos produtos"
+          >
+            &gt;
+          </button>
+        )}
       </div>
     </section>
   )

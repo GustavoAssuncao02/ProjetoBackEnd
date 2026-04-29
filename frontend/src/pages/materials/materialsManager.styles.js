@@ -5,7 +5,7 @@ const styles = {
     padding: '30px'
   },
   card: {
-    maxWidth: '1280px',
+    maxWidth: '1200px',
     margin: '0 auto',
     backgroundColor: '#fff',
     borderRadius: '12px',
@@ -17,23 +17,17 @@ const styles = {
     marginBottom: '20px'
   },
   form: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-    gap: '12px',
-    marginBottom: '20px'
+    display: 'flex',
+    gap: '10px',
+    marginBottom: '20px',
+    flexWrap: 'wrap'
   },
   input: {
+    flex: 1,
+    minWidth: '220px',
     padding: '12px',
     borderRadius: '8px',
     border: '1px solid #ccc'
-  },
-  textarea: {
-    gridColumn: '1 / -1',
-    padding: '12px',
-    borderRadius: '8px',
-    border: '1px solid #ccc',
-    minHeight: '100px',
-    resize: 'vertical'
   },
   button: {
     padding: '12px 16px',
@@ -61,25 +55,40 @@ const styles = {
   },
   table: {
     width: '100%',
-    tableLayout: 'auto',
     borderCollapse: 'collapse'
   },
   th: {
-    cursor: 'pointer',
     textAlign: 'left',
     borderBottom: '1px solid #ddd',
-    padding: '12px',
-    whiteSpace: 'nowrap'
+    padding: '12px'
   },
   td: {
     borderBottom: '1px solid #eee',
     padding: '12px',
-    verticalAlign: 'top'
+    verticalAlign: 'middle'
   },
   actions: {
     display: 'flex',
     gap: '8px',
     flexWrap: 'wrap'
+  },
+  badgeOn: {
+    display: 'inline-block',
+    padding: '6px 10px',
+    borderRadius: '999px',
+    backgroundColor: '#dcfce7',
+    color: '#166534',
+    fontSize: '12px',
+    fontWeight: 'bold'
+  },
+  badgeOff: {
+    display: 'inline-block',
+    padding: '6px 10px',
+    borderRadius: '999px',
+    backgroundColor: '#fee2e2',
+    color: '#991b1b',
+    fontSize: '12px',
+    fontWeight: 'bold'
   },
   message: {
     marginBottom: '15px',

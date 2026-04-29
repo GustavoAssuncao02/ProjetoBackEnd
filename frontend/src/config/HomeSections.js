@@ -20,8 +20,13 @@ const homeSections = [
     visible: true
   },
   {
-    id: 'location-title',
+    id: 'product-carousel',
     order: 5,
+    visible: true
+  },
+  {
+    id: 'location-title',
+    order: 6,
     visible: true
   }
 ]
