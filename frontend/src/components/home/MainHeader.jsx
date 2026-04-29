@@ -3,9 +3,21 @@ import styles from './Home.Styles'
 export default function MainHeader() {
   return (
     <header style={styles.header}>
-      <a href="/" style={styles.logo}>
-        ORIUN OUTLET
-      </a>
+      <div style={styles.brandGroup}>
+        <a href="/" style={styles.brandLogoLink} aria-label="ORIUN OUTLET">
+          <img
+            src="/logo-symbol.jpg"
+            alt=""
+            width="50"
+            height="50"
+            style={styles.brandLogo}
+          />
+        </a>
+
+        <a href="/" style={styles.brandNameLink}>
+          ORIUN OUTLET
+        </a>
+      </div>
 
       <input
         type="text"

@@ -10,6 +10,8 @@ import Home from './pages/Home/Home'
 import ProductReviews from './pages/reviews/ProductReviews'
 import SubcategoriesManager from './pages/subcategories/SubcategoriesManager'
 import Register from './pages/register/RegisterUser'
+import AllProducts from './pages/allproducts/AllProducts'
+import ProductDetails from './pages/productDetails/ProductDetails'
 function App() {
   return (
     <BrowserRouter>
@@ -24,6 +26,8 @@ function App() {
         <Route path="/products/:id/reviews" element={<ProductReviews />} />
         <Route path="/subcategories-manager" element={<SubcategoriesManager />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/allproducts" element={<AllProducts />} />
+        <Route path="/allproducts/:productId" element={<ProductDetails />} />
 
       </Routes>
     </BrowserRouter>

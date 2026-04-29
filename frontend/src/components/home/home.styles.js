@@ -26,6 +26,71 @@ const styles = {
     cursor: 'pointer'
   },
 
+  brand: {
+    alignItems: 'center',
+    color: '#fff',
+    display: 'inline-flex',
+    flexShrink: 0,
+    gap: '8px',
+    justifyContent: 'start',
+    textDecoration: 'none',
+    width: 'fit-content',
+    cursor: 'pointer'
+  },
+
+  brandGroup: {
+    alignItems: 'center',
+    display: 'flex',
+    flexShrink: 0,
+    gap: '8px'
+  },
+
+  brandLogoLink: {
+    alignItems: 'center',
+    display: 'flex',
+    height: '50px',
+    justifyContent: 'center',
+    textDecoration: 'none',
+    width: '50px'
+  },
+
+  brandLogo: {
+    display: 'block',
+    height: '50px',
+    maxHeight: '50px',
+    maxWidth: '50px',
+    objectFit: 'contain',
+    width: '50px'
+  },
+
+  brandNameLink: {
+    alignItems: 'center',
+    color: '#fff',
+    display: 'flex',
+    fontSize: '26px',
+    fontWeight: '900',
+    height: '50px',
+    letterSpacing: '1px',
+    lineHeight: 1,
+    textDecoration: 'none',
+    whiteSpace: 'nowrap'
+  },
+
+  brandName: {
+    alignItems: 'center',
+    color: '#fff',
+    display: 'inline-flex',
+    fontSize: '26px',
+    fontWeight: '900',
+    height: '50px',
+    letterSpacing: '1px',
+    lineHeight: 1,
+    position: 'relative',
+    top: '-10px',
+    transform: 'none',
+    whiteSpace: 'nowrap'
+  },
+
   search: {
     flex: 1,
     minWidth: '180px',
