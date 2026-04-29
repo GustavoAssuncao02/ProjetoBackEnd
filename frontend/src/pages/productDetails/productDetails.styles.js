@@ -27,7 +27,29 @@ const styles = {
     display: 'grid',
     gridTemplateColumns: '1.1fr 0.9fr',
     gap: '32px',
-    padding: '24px'
+    padding: '24px',
+    position: 'relative'
+  },
+
+  favoriteButton: {
+    alignItems: 'center',
+    backgroundColor: 'transparent',
+    border: 'none',
+    color: '#111827',
+    cursor: 'pointer',
+    display: 'flex',
+    height: '36px',
+    justifyContent: 'center',
+    padding: 0,
+    position: 'absolute',
+    right: '22px',
+    top: '20px',
+    width: '36px',
+    zIndex: 2
+  },
+
+  favoriteButtonActive: {
+    color: '#dc2626'
   },
 
   gallery: {
@@ -99,6 +121,46 @@ const styles = {
     fontWeight: '800',
     lineHeight: 1.1,
     margin: 0
+  },
+
+  ratingRow: {
+    alignItems: 'center',
+    display: 'flex',
+    gap: '8px',
+    marginTop: '-8px'
+  },
+
+  ratingStars: {
+    alignItems: 'center',
+    display: 'inline-flex',
+    gap: '2px'
+  },
+
+  star: {
+    display: 'inline-block',
+    lineHeight: 1,
+    overflow: 'hidden',
+    position: 'relative'
+  },
+
+  starEmpty: {
+    color: '#d1d5db'
+  },
+
+  starFilled: {
+    color: '#d4a017',
+    left: 0,
+    lineHeight: 1,
+    overflow: 'hidden',
+    position: 'absolute',
+    top: 0,
+    whiteSpace: 'nowrap'
+  },
+
+  ratingSummary: {
+    color: '#6b7280',
+    fontSize: '13px',
+    fontWeight: '700'
   },
 
   price: {
@@ -201,6 +263,128 @@ const styles = {
     margin: '-6px 0 0',
     padding: '12px',
     textAlign: 'center'
+  },
+
+  reviewsSection: {
+    backgroundColor: '#fff',
+    borderRadius: '12px',
+    boxShadow: '0 4px 14px rgba(0,0,0,0.08)',
+    marginTop: '24px',
+    padding: '28px'
+  },
+
+  reviewsHeader: {
+    alignItems: 'flex-start',
+    borderBottom: '1px solid #e5e7eb',
+    display: 'flex',
+    gap: '18px',
+    justifyContent: 'space-between',
+    marginBottom: '22px',
+    paddingBottom: '18px',
+    flexWrap: 'wrap'
+  },
+
+  reviewsKicker: {
+    color: '#6b7280',
+    display: 'block',
+    fontSize: '12px',
+    fontWeight: '800',
+    letterSpacing: '0.08em',
+    marginBottom: '6px',
+    textTransform: 'uppercase'
+  },
+
+  reviewsTitle: {
+    color: '#111827',
+    fontSize: '28px',
+    fontWeight: '800',
+    lineHeight: 1.1,
+    margin: 0
+  },
+
+  reviewsScore: {
+    alignItems: 'center',
+    display: 'flex',
+    gap: '9px',
+    minHeight: '30px'
+  },
+
+  reviewsAverage: {
+    color: '#111827',
+    fontSize: '18px'
+  },
+
+  reviewsTotal: {
+    color: '#6b7280',
+    fontSize: '13px',
+    fontWeight: '700'
+  },
+
+  reviewMessage: {
+    backgroundColor: '#f9fafb',
+    border: '1px solid #e5e7eb',
+    borderRadius: '8px',
+    color: '#374151',
+    fontSize: '14px',
+    fontWeight: '700',
+    margin: '0 0 18px',
+    padding: '12px 14px'
+  },
+
+  reviewList: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '12px'
+  },
+
+  reviewEmptyState: {
+    backgroundColor: '#f9fafb',
+    border: '1px solid #e5e7eb',
+    borderRadius: '10px',
+    color: '#6b7280',
+    fontSize: '14px',
+    fontWeight: '700',
+    padding: '18px',
+    textAlign: 'center'
+  },
+
+  reviewItem: {
+    border: '1px solid #e5e7eb',
+    borderRadius: '10px',
+    padding: '16px'
+  },
+
+  reviewItemHeader: {
+    alignItems: 'flex-start',
+    display: 'flex',
+    gap: '12px',
+    justifyContent: 'space-between',
+    marginBottom: '10px'
+  },
+
+  reviewAuthor: {
+    color: '#111827',
+    display: 'block',
+    fontSize: '14px',
+    marginBottom: '5px'
+  },
+
+  reviewItemStars: {
+    display: 'flex'
+  },
+
+  reviewDate: {
+    color: '#6b7280',
+    fontSize: '12px',
+    fontWeight: '700',
+    whiteSpace: 'nowrap'
+  },
+
+  reviewComment: {
+    color: '#4b5563',
+    fontSize: '14px',
+    lineHeight: 1.55,
+    margin: 0
   },
 
   message: {

@@ -11,6 +11,26 @@ const sortOptions = [
   { label: 'Adicionado recentemente', value: 'recent' }
 ]
 
+const defaultSortBy = 'name-asc'
+
+function getValidSortBy(value) {
+  return sortOptions.some((option) => option.value === value) ? value : defaultSortBy
+}
+
+function getCategoryIdsFromParams(searchParams) {
+  const values = [
+    ...searchParams.getAll('categoryId'),
+    ...searchParams.getAll('categoryIds')
+  ]
+
+  const categoryIds = values
+    .flatMap((value) => String(value || '').split(','))
+    .map((value) => value.trim())
+    .filter(Boolean)
+
+  return [...new Set(categoryIds)]
+}
+
 function normalizeText(value) {
   return String(value || '')
     .normalize('NFD')
@@ -20,21 +40,63 @@ function normalizeText(value) {
 
 export default function AllProducts() {
   const [searchParams] = useSearchParams()
+  const categoryIdsFromUrl = getCategoryIdsFromParams(searchParams)
+  const categoryIdsParamKey = categoryIdsFromUrl.join(',')
   const [products, setProducts] = useState([])
   const [variants, setVariants] = useState([])
   const [filters, setFilters] = useState({
-    categoryIds: [],
+    categoryIds: categoryIdsFromUrl,
     subcategoryIds: [],
     colors: [],
-    sortBy: 'name-asc',
+    sortBy: getValidSortBy(searchParams.get('sortBy')),
     availableOnly: false
   })
   const [message, setMessage] = useState('')
   const searchTerm = searchParams.get('search')?.trim() || ''
+  const sortByParam = searchParams.get('sortBy')
 
   useEffect(() => {
     loadCatalog()
   }, [])
+
+  useEffect(() => {
+    if (!categoryIdsParamKey) {
+      return
+    }
+
+    const nextCategoryIds = categoryIdsParamKey.split(',').filter(Boolean)
+
+    setFilters((prev) => {
+      if (prev.categoryIds.join(',') === categoryIdsParamKey) {
+        return prev
+      }
+
+      return {
+        ...prev,
+        categoryIds: nextCategoryIds,
+        subcategoryIds: []
+      }
+    })
+  }, [categoryIdsParamKey])
+
+  useEffect(() => {
+    if (!sortByParam) {
+      return
+    }
+
+    const nextSortBy = getValidSortBy(sortByParam)
+
+    setFilters((prev) => {
+      if (prev.sortBy === nextSortBy) {
+        return prev
+      }
+
+      return {
+        ...prev,
+        sortBy: nextSortBy
+      }
+    })
+  }, [sortByParam])
 
   async function loadCatalog() {
     try {
@@ -212,7 +274,7 @@ export default function AllProducts() {
       categoryIds: [],
       subcategoryIds: [],
       colors: [],
-      sortBy: 'name-asc',
+      sortBy: defaultSortBy,
       availableOnly: false
     })
   }

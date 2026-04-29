@@ -11,6 +11,7 @@ import ProductReviews from './pages/reviews/ProductReviews'
 import SubcategoriesManager from './pages/subcategories/SubcategoriesManager'
 import Register from './pages/register/RegisterUser'
 import AllProducts from './pages/allproducts/AllProducts'
+import AllCategories from './pages/allcategories/AllCategories'
 import Cart from './pages/cart/Cart'
 import ProductDetails from './pages/productDetails/ProductDetails'
 import MaterialsManager from './pages/materials/MaterialsManager'
@@ -29,6 +30,7 @@ function App() {
         <Route path="/products/:id/reviews" element={<ProductReviews />} />
         <Route path="/subcategories-manager" element={<SubcategoriesManager />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/allcategories" element={<AllCategories />} />
         <Route path="/allproducts" element={<AllProducts />} />
         <Route path="/allproducts/:productId" element={<ProductDetails />} />
         <Route path="/carrinho" element={<Cart />} />

@@ -3,10 +3,17 @@ import { useLocation } from 'react-router-dom'
 import { CART_UPDATED_EVENT, getCartItemCount } from '../../utils/cartStorage'
 import styles from './Home.Styles'
 
+const AUTH_UPDATED_EVENT = 'auth-updated'
+
+function isUserLoggedIn() {
+  return Boolean(localStorage.getItem('token'))
+}
+
 export default function MainHeader() {
   const location = useLocation()
   const currentSearchTerm = new URLSearchParams(location.search).get('search') || ''
   const [cartCount, setCartCount] = useState(getCartItemCount)
+  const [isLoggedIn, setIsLoggedIn] = useState(isUserLoggedIn)
 
   const searchFormStyle = {
     ...styles.searchForm,
@@ -29,12 +36,20 @@ export default function MainHeader() {
       setCartCount(getCartItemCount())
     }
 
+    function updateAuthState() {
+      setIsLoggedIn(isUserLoggedIn())
+    }
+
     window.addEventListener(CART_UPDATED_EVENT, updateCartCount)
     window.addEventListener('storage', updateCartCountFromStorage)
+    window.addEventListener('storage', updateAuthState)
+    window.addEventListener(AUTH_UPDATED_EVENT, updateAuthState)
 
     return () => {
       window.removeEventListener(CART_UPDATED_EVENT, updateCartCount)
       window.removeEventListener('storage', updateCartCountFromStorage)
+      window.removeEventListener('storage', updateAuthState)
+      window.removeEventListener(AUTH_UPDATED_EVENT, updateAuthState)
     }
   }, [])
 
@@ -72,16 +87,16 @@ export default function MainHeader() {
           Destaque
         </a>
 
-        <a href="#novidades" style={styles.navItem}>
+        <a href="/allproducts?sortBy=recent" style={styles.navItem}>
           Novidades
         </a>
 
-        <a href="#categorias" style={styles.navItem}>
+        <a href="/allcategories" style={styles.navItem}>
           Categorias
         </a>
 
-        <a href="/login" style={styles.navItem}>
-          Login / Registro
+        <a href={isLoggedIn ? '/profile' : '/login'} style={styles.navItem}>
+          {isLoggedIn ? 'Meu Perfil' : 'Login / Registro'}
         </a>
 
         <a href="/carrinho" style={styles.cartLink} aria-label="Carrinho">

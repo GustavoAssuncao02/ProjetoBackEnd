@@ -51,6 +51,30 @@ const styles = {
     marginBottom: '16px',
     display: 'block',
   },
+  dateField: {
+    display: 'block',
+    marginBottom: '16px',
+    position: 'relative',
+    width: '100%',
+  },
+  datePlaceholder: {
+    color: t.muted,
+    fontFamily: t.fontBody,
+    fontSize: '13px',
+    left: 0,
+    letterSpacing: '0.02em',
+    pointerEvents: 'none',
+    position: 'absolute',
+    top: '10px',
+    zIndex: 1,
+  },
+  dateInput: {
+    marginBottom: 0,
+    position: 'relative',
+  },
+  emptyDateInput: {
+    color: 'transparent',
+  },
   button: {
     fontFamily: t.fontBody,
     fontSize: '12px',

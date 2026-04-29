@@ -1,7 +1,9 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import styles from './login.styles'
 
 export default function Login() {
+  const navigate = useNavigate()
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -9,8 +11,6 @@ export default function Login() {
 
   const [message, setMessage] = useState('')
   const [loading, setLoading] = useState(false)
-  const [token, setToken] = useState('')
-  const [user, setUser] = useState(null)
 
   function handleChange(e) {
     const { name, value } = e.target
@@ -43,24 +43,13 @@ export default function Login() {
       localStorage.setItem('token', data.token)
       localStorage.setItem('user', JSON.stringify(data.user))
 
-      setToken(data.token)
-      setUser(data.user)
-      setMessage('Login successful!')
+      window.dispatchEvent(new Event('auth-updated'))
+      navigate('/')
     } catch (error) {
       setMessage(error.message)
-      setToken('')
-      setUser(null)
     } finally {
       setLoading(false)
     }
-  }
-
-  function handleLogout() {
-    localStorage.removeItem('token')
-    localStorage.removeItem('user')
-    setToken('')
-    setUser(null)
-    setMessage('Logged out successfully!')
   }
 
   return (
@@ -102,31 +91,6 @@ export default function Login() {
 
         {message && <p style={styles.message}>{message}</p>}
 
-        {user && (
-          <div style={styles.tokenBox}>
-            <strong>User:</strong>
-            <br />
-            {user.name} - {user.email} - {user.role}
-          </div>
-        )}
-
-        {token && (
-          <div style={styles.tokenBox}>
-            <strong>JWT Token:</strong>
-            <br />
-            {token}
-          </div>
-        )}
-
-        {token && (
-          <button
-            type="button"
-            style={{ ...styles.button, marginTop: '12px' }}
-            onClick={handleLogout}
-          >
-            Logout
-          </button>
-        )}
       </div>
     </div>
   )
