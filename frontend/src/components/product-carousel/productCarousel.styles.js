@@ -1,137 +1,187 @@
+// productCarousel.styles.js — ORIUN OUTLET
+// Consistente com Home.Styles.js: escuro, dourado, editorial de moda
+
+const COLORS = {
+  bg: '#0D0D0D',
+  surface: '#161616',
+  surfaceAlt: '#1E1E1E',
+  border: '#2A2A2A',
+  gold: '#C9A84C',
+  goldLight: '#E0C060',
+  white: '#F5F5F0',
+  whiteOff: '#BBBBB5',
+  textMuted: '#777770',
+  strikethrough: '#555550',
+}
+
 const styles = {
+  /* ─── SEÇÃO WRAPPER ───────────────────────────────────────── */
   section: {
-    marginTop: '28px',
-    overflow: 'hidden',
-    width: '100%'
+    background: COLORS.bg,
+    padding: '64px 0 80px',
+    borderTop: `1px solid ${COLORS.border}`,
   },
 
+  /* ─── HEADER ─────────────────────────────────────────────── */
   header: {
-    alignItems: 'end',
     display: 'flex',
+    alignItems: 'flex-end',
     justifyContent: 'space-between',
-    gap: '16px',
-    marginBottom: '14px'
-  },
-
-  carouselArea: {
-    alignItems: 'center',
-    display: 'flex',
-    gap: '14px',
-    width: '100%'
+    padding: '0 40px 32px',
+    borderBottom: `1px solid ${COLORS.border}`,
+    marginBottom: '40px',
   },
 
   title: {
-    color: '#111827',
-    fontSize: '24px',
-    fontWeight: '900',
-    margin: 0
+    fontFamily: '"Bebas Neue", "Anton", "Impact", sans-serif',
+    fontSize: 'clamp(32px, 4vw, 48px)',
+    letterSpacing: '0.06em',
+    textTransform: 'uppercase',
+    color: COLORS.white,
+    margin: 0,
+    lineHeight: 1,
   },
 
   subtitle: {
-    color: '#6b7280',
-    fontSize: '14px',
-    fontWeight: '700',
-    margin: 0
+    fontFamily: '"DM Sans", "Helvetica Neue", sans-serif',
+    fontSize: '13px',
+    color: COLORS.textMuted,
+    letterSpacing: '0.04em',
+    margin: '8px 0 0',
+  },
+
+  /* ─── CAROUSEL AREA ───────────────────────────────────────── */
+  carouselArea: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '0',
+    padding: '0 40px',
   },
 
   arrowButton: {
-    alignItems: 'center',
-    backgroundColor: '#111827',
-    border: 'none',
-    borderRadius: '999px',
-    color: '#fff',
+    flexShrink: 0,
+    width: '44px',
+    height: '44px',
+    background: 'transparent',
+    border: `1px solid ${COLORS.border}`,
+    color: COLORS.whiteOff,
+    fontSize: '16px',
     cursor: 'pointer',
     display: 'flex',
-    flexShrink: 0,
-    fontSize: '20px',
-    fontWeight: '900',
-    height: '42px',
+    alignItems: 'center',
     justifyContent: 'center',
-    lineHeight: 1,
-    width: '42px'
+    transition: 'border-color 0.2s, color 0.2s, background 0.2s',
+    borderRadius: '2px',
+    fontFamily: '"DM Sans", sans-serif',
   },
 
   viewport: {
     flex: 1,
     overflow: 'hidden',
-    width: '100%'
+    margin: '0 16px',
   },
 
   track: {
     display: 'grid',
-    gap: '16px',
-    gridTemplateColumns: 'repeat(4, minmax(0, 1fr))',
-    width: '100%'
+    gridTemplateColumns: 'repeat(4, 1fr)',
+    gap: '1px',
+    background: COLORS.border,
   },
 
+  /* ─── CARD ────────────────────────────────────────────────── */
   link: {
-    color: 'inherit',
+    textDecoration: 'none',
     display: 'block',
-    textDecoration: 'none'
+    background: COLORS.bg,
   },
 
   card: {
-    backgroundColor: '#fff',
-    borderRadius: '10px',
-    boxShadow: '0 4px 14px rgba(0,0,0,0.08)',
-    overflow: 'hidden'
+    display: 'flex',
+    flexDirection: 'column',
+    background: COLORS.bg,
+    overflow: 'hidden',
+    cursor: 'pointer',
   },
 
   imageWrap: {
-    aspectRatio: '4 / 5',
-    backgroundColor: '#ededed',
-    overflow: 'hidden'
+    position: 'relative',
+    aspectRatio: '3 / 4',
+    overflow: 'hidden',
+    background: COLORS.surfaceAlt,
   },
 
   image: {
-    display: 'block',
+    width: '100%',
     height: '100%',
     objectFit: 'cover',
-    width: '100%'
+    display: 'block',
+    transition: 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+    filter: 'grayscale(15%)',
   },
 
   noImage: {
-    alignItems: 'center',
-    color: '#6b7280',
     display: 'flex',
-    fontSize: '14px',
-    fontWeight: '700',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
     height: '100%',
-    justifyContent: 'center'
+    color: COLORS.textMuted,
+    fontSize: '11px',
+    fontFamily: '"DM Sans", sans-serif',
+    letterSpacing: '0.08em',
+    textTransform: 'uppercase',
   },
 
+  /* ─── INFO ────────────────────────────────────────────────── */
   info: {
-    padding: '12px'
+    padding: '16px 20px 20px',
+    borderTop: `1px solid ${COLORS.border}`,
+    background: COLORS.bg,
+    transition: 'background 0.2s',
   },
 
   name: {
-    color: '#111827',
-    fontSize: '15px',
-    fontWeight: '900',
-    margin: '0 0 7px'
+    fontFamily: '"DM Sans", "Helvetica Neue", sans-serif',
+    fontSize: '13px',
+    fontWeight: '600',
+    letterSpacing: '0.04em',
+    color: COLORS.whiteOff,
+    margin: '0 0 8px',
+    lineHeight: 1.4,
+    textTransform: 'uppercase',
+    overflow: 'hidden',
+    display: '-webkit-box',
+    WebkitLineClamp: 2,
+    WebkitBoxOrient: 'vertical',
   },
 
   price: {
-    color: '#111827',
-    fontSize: '14px',
-    fontWeight: '800',
-    margin: 0
+    fontFamily: '"Bebas Neue", "Anton", sans-serif',
+    fontSize: '20px',
+    letterSpacing: '0.06em',
+    color: COLORS.gold,
+    margin: 0,
+    lineHeight: 1,
   },
 
   oldPrice: {
-    color: '#6b7280',
-    fontWeight: '600',
-    textDecoration: 'line-through'
+    textDecoration: 'line-through',
+    color: COLORS.strikethrough,
+    fontSize: '14px',
+    fontFamily: '"DM Sans", sans-serif',
+    fontWeight: '400',
+    letterSpacing: '0.02em',
   },
 
+  /* ─── MENSAGEM DE ERRO ────────────────────────────────────── */
   message: {
-    backgroundColor: '#fff',
-    borderRadius: '10px',
-    color: '#6b7280',
-    fontWeight: '700',
-    padding: '18px',
-    textAlign: 'center'
-  }
+    padding: '40px',
+    fontFamily: '"DM Sans", sans-serif',
+    fontSize: '13px',
+    color: COLORS.textMuted,
+    textAlign: 'center',
+    letterSpacing: '0.04em',
+  },
 }
 
 export default styles

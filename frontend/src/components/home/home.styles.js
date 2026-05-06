@@ -1,288 +1,267 @@
-const styles = {
-  page: {
-    backgroundColor: '#ffffff',
-    minHeight: '100vh',
-    fontFamily: 'Arial, sans-serif'
-  },
+// Home.Styles.js — ORIUN OUTLET
+// Estética: editorial de moda urbana — escuro, dourado, tipografia bold
 
+const COLORS = {
+  bg: '#0D0D0D',
+  surface: '#161616',
+  surfaceAlt: '#1E1E1E',
+  border: '#2A2A2A',
+  gold: '#C9A84C',
+  goldLight: '#E0C060',
+  goldMuted: 'rgba(201,168,76,0.15)',
+  white: '#F5F5F0',
+  whiteOff: '#BBBBB5',
+  textMuted: '#777770',
+}
+
+const styles = {
+  /* ─── HEADER ─────────────────────────────────────────────── */
   header: {
-    backgroundColor: '#000',
-    color: '#fff',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding: '14px 24px',
-    gap: '20px',
-    flexWrap: 'wrap'
-  },
-
-  logo: {
-    color: '#fff',
-    fontSize: '26px',
-    fontWeight: 'bold',
-    letterSpacing: '1px',
-    textDecoration: 'none',
-    whiteSpace: 'nowrap',
-    cursor: 'pointer'
-  },
-
-  brand: {
-    alignItems: 'center',
-    color: '#fff',
-    display: 'inline-flex',
-    flexShrink: 0,
-    gap: '8px',
-    justifyContent: 'start',
-    textDecoration: 'none',
-    width: 'fit-content',
-    cursor: 'pointer'
+    padding: '0 40px',
+    height: '72px',
+    background: COLORS.bg,
+    borderBottom: `1px solid ${COLORS.border}`,
+    position: 'sticky',
+    top: 0,
+    zIndex: 100,
+    gap: '24px',
   },
 
   brandGroup: {
-    alignItems: 'center',
     display: 'flex',
+    alignItems: 'center',
+    gap: '12px',
+    textDecoration: 'none',
     flexShrink: 0,
-    gap: '8px'
   },
 
   brandLogoLink: {
-    alignItems: 'center',
     display: 'flex',
-    height: '50px',
-    justifyContent: 'center',
+    alignItems: 'center',
     textDecoration: 'none',
-    width: '50px'
   },
 
   brandLogo: {
-    display: 'block',
-    height: '50px',
-    maxHeight: '50px',
-    maxWidth: '50px',
-    objectFit: 'contain',
-    width: '50px'
+    width: '40px',
+    height: '40px',
+    borderRadius: '4px',
+    objectFit: 'cover',
   },
 
   brandNameLink: {
-    alignItems: 'center',
-    color: '#fff',
-    display: 'flex',
-    fontSize: '26px',
-    fontWeight: '900',
-    height: '50px',
-    letterSpacing: '1px',
-    lineHeight: 1,
+    fontFamily: '"Bebas Neue", "Anton", "Impact", sans-serif',
+    fontSize: '22px',
+    letterSpacing: '0.12em',
+    color: COLORS.white,
     textDecoration: 'none',
-    whiteSpace: 'nowrap'
-  },
-
-  brandName: {
-    alignItems: 'center',
-    color: '#fff',
-    display: 'inline-flex',
-    fontSize: '26px',
-    fontWeight: '900',
-    height: '50px',
-    letterSpacing: '1px',
     lineHeight: 1,
-    position: 'relative',
-    top: '-10px',
-    transform: 'none',
-    whiteSpace: 'nowrap'
   },
 
   searchForm: {
-    alignItems: 'center',
-    backgroundColor: '#f5f5f5',
-    borderRadius: '22px',
     display: 'flex',
-    flex: '1 1 620px',
-    maxWidth: '720px',
-    minWidth: '420px',
-    margin: 0,
-    overflow: 'hidden'
+    alignItems: 'center',
+    background: COLORS.surface,
+    border: `1px solid ${COLORS.border}`,
+    borderRadius: '4px',
+    overflow: 'hidden',
+    transition: 'border-color 0.2s',
   },
 
   search: {
-    boxSizing: 'border-box',
-    flex: 1,
-    padding: '10px 14px',
-    borderRadius: 0,
+    background: 'transparent',
     border: 'none',
     outline: 'none',
-    backgroundColor: 'transparent',
-    color: '#111',
-    fontSize: '14px',
-    width: '100%'
+    padding: '10px 16px',
+    color: COLORS.white,
+    fontSize: '13px',
+    fontFamily: '"DM Sans", "Helvetica Neue", sans-serif',
+    letterSpacing: '0.03em',
+    caretColor: COLORS.gold,
   },
 
   nav: {
     display: 'flex',
     alignItems: 'center',
-    gap: '24px',
-    fontSize: '15px',
-    fontWeight: 'bold',
-    flexWrap: 'wrap'
+    gap: '28px',
+    flexShrink: 0,
   },
 
   navItem: {
-    color: '#fff',
+    fontFamily: '"DM Sans", "Helvetica Neue", sans-serif',
+    fontSize: '12px',
+    fontWeight: '600',
+    letterSpacing: '0.1em',
+    textTransform: 'uppercase',
+    color: COLORS.whiteOff,
     textDecoration: 'none',
-    cursor: 'pointer',
-    whiteSpace: 'nowrap'
+    transition: 'color 0.2s',
   },
 
   cartLink: {
     position: 'relative',
-    color: '#fff',
-    textDecoration: 'none',
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
-    cursor: 'pointer'
+    color: COLORS.whiteOff,
+    textDecoration: 'none',
+    transition: 'color 0.2s',
   },
 
   cartIcon: {
-    display: 'block'
+    display: 'block',
+    width: '22px',
+    height: '22px',
   },
 
   cartBadge: {
-    alignItems: 'center',
-    backgroundColor: '#dc2626',
-    borderRadius: '999px',
-    color: '#fff',
-    display: 'flex',
-    fontSize: '11px',
-    fontWeight: '900',
-    height: '18px',
-    justifyContent: 'center',
-    minWidth: '18px',
-    padding: '0 5px',
     position: 'absolute',
-    right: '-10px',
-    top: '-10px'
+    top: '-6px',
+    right: '-8px',
+    background: COLORS.gold,
+    color: COLORS.bg,
+    fontSize: '10px',
+    fontWeight: '700',
+    fontFamily: '"DM Sans", sans-serif',
+    width: '18px',
+    height: '18px',
+    borderRadius: '50%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    lineHeight: 1,
   },
 
+  /* ─── INFO BAR ────────────────────────────────────────────── */
   infoBar: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(3, 1fr)',
-    textAlign: 'center',
-    backgroundColor: '#f3f3f3',
-    fontSize: '12px',
-    padding: '10px 0'
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '48px',
+    background: COLORS.gold,
+    padding: '10px 40px',
+    fontFamily: '"DM Sans", "Helvetica Neue", sans-serif',
+    fontSize: '11px',
+    fontWeight: '700',
+    letterSpacing: '0.14em',
+    textTransform: 'uppercase',
+    color: COLORS.bg,
   },
 
+  /* ─── HERO ────────────────────────────────────────────────── */
   hero: {
-    display: 'grid',
-    gridTemplateColumns: '1.1fr 2.4fr',
-    minHeight: '420px',
-    backgroundColor: '#d9d9d9'
+    display: 'flex',
+    alignItems: 'stretch',
+    minHeight: 'calc(100vh - 72px - 40px)',
+    background: COLORS.bg,
+    overflow: 'hidden',
   },
 
   heroLeft: {
-    backgroundColor: '#000',
-    color: '#fff',
     display: 'flex',
-    alignItems: 'center',
+    flexDirection: 'column',
     justifyContent: 'center',
-    padding: '30px'
+    padding: '80px 60px',
+    flex: '0 0 420px',
+    borderRight: `1px solid ${COLORS.border}`,
   },
 
   heroText: {
-    fontSize: '34px',
-    fontWeight: 'bold',
-    lineHeight: 1.2,
-    textTransform: 'uppercase',
-    whiteSpace: 'pre-line'
+    fontFamily: '"Bebas Neue", "Anton", "Impact", sans-serif',
+    fontSize: 'clamp(72px, 9vw, 120px)',
+    lineHeight: '0.9',
+    letterSpacing: '-0.02em',
+    color: COLORS.white,
+    whiteSpace: 'pre-line',
+    position: 'relative',
   },
 
   heroRight: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    overflow: 'hidden'
+    flex: 1,
+    position: 'relative',
+    overflow: 'hidden',
+    background: COLORS.surfaceAlt,
   },
 
   heroImage: {
     width: '100%',
     height: '100%',
-    objectFit: 'cover'
+    objectFit: 'cover',
+    objectPosition: 'center top',
+    display: 'block',
+    filter: 'grayscale(20%) contrast(1.05)',
   },
 
+  /* ─── SECTION TITLE ───────────────────────────────────────── */
+  sectionTitle: {
+    fontFamily: '"Bebas Neue", "Anton", "Impact", sans-serif',
+    fontSize: 'clamp(36px, 5vw, 56px)',
+    letterSpacing: '0.06em',
+    textTransform: 'uppercase',
+    color: COLORS.white,
+    padding: '64px 40px 32px',
+    borderBottom: `1px solid ${COLORS.border}`,
+    lineHeight: 1,
+  },
+
+  /* ─── PRODUCT HIGHLIGHTS ──────────────────────────────────── */
   highlights: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-    gap: '26px',
-    padding: '28px 24px',
-    backgroundColor: '#fff'
-  },
-
-  homeCarousel: {
-    backgroundColor: '#fff',
-    boxSizing: 'border-box',
-    padding: '32px clamp(32px, 7vw, 96px) 42px',
-    width: '100%'
-  },
-
-  homeCarouselInner: {
-    boxSizing: 'border-box',
-    margin: '0 auto',
-    maxWidth: '1160px',
-    width: '100%'
+    gridTemplateColumns: 'repeat(3, 1fr)',
+    gap: '1px',
+    background: COLORS.border,
+    margin: '0',
   },
 
   card: {
-    color: '#000',
-    display: 'block',
-    textAlign: 'center',
-    textDecoration: 'none'
+    display: 'flex',
+    flexDirection: 'column',
+    background: COLORS.bg,
+    textDecoration: 'none',
+    overflow: 'hidden',
+    transition: 'background 0.25s',
   },
 
   cardImageWrap: {
-    alignItems: 'center',
-    backgroundColor: '#f1f1f1',
-    borderRadius: '8px',
-    display: 'flex',
-    height: '260px',
-    justifyContent: 'center',
+    position: 'relative',
+    aspectRatio: '3 / 4',
     overflow: 'hidden',
-    width: '100%'
+    background: COLORS.surfaceAlt,
   },
 
   cardImage: {
-    display: 'block',
+    width: '100%',
     height: '100%',
     objectFit: 'cover',
-    width: '100%'
+    display: 'block',
+    transition: 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+    filter: 'grayscale(15%)',
   },
 
   cardImageFallback: {
-    alignItems: 'center',
-    color: '#777',
     display: 'flex',
-    fontSize: '13px',
-    fontWeight: '700',
-    height: '100%',
+    alignItems: 'center',
     justifyContent: 'center',
+    width: '100%',
+    height: '100%',
+    color: COLORS.textMuted,
+    fontSize: '12px',
+    fontFamily: '"DM Sans", sans-serif',
+    letterSpacing: '0.08em',
     textTransform: 'uppercase',
-    width: '100%'
   },
 
   cardTitle: {
-    marginTop: '10px',
-    fontWeight: 'bold',
-    fontSize: '15px'
+    padding: '20px 24px 24px',
+    fontFamily: '"Bebas Neue", "Anton", "Impact", sans-serif',
+    fontSize: '24px',
+    letterSpacing: '0.08em',
+    textTransform: 'uppercase',
+    color: COLORS.white,
+    borderTop: `1px solid ${COLORS.border}`,
+    transition: 'color 0.2s',
   },
-
-  sectionTitle: {
-    backgroundColor: '#000',
-    color: '#fff',
-    textAlign: 'center',
-    padding: '18px',
-    fontSize: '28px',
-    fontWeight: 'bold',
-    textTransform: 'uppercase'
-  }
 }
 
 export default styles
