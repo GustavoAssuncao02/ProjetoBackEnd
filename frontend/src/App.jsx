@@ -15,6 +15,7 @@ import AllCategories from './pages/allcategories/AllCategories'
 import Cart from './pages/cart/Cart'
 import ProductDetails from './pages/productDetails/ProductDetails'
 import MaterialsManager from './pages/materials/MaterialsManager'
+import HomeManager from './pages/home-manager/HomeManager'
 function App() {
   return (
     <BrowserRouter>
@@ -25,6 +26,7 @@ function App() {
         <Route path="/categories" element={<CategoriesManager />} />
         <Route path="/products" element={<ProductsManager />} />
         <Route path="/materials" element={<MaterialsManager />} />
+        <Route path="/home-manager" element={<HomeManager />} />
         <Route path="/products/variant" element={<VariantsManager />} />
         <Route path="/addresses" element={<AddressesManager />} />
         <Route path="/products/:id/reviews" element={<ProductReviews />} />

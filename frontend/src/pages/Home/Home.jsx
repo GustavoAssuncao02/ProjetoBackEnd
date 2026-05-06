@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import MainHeader from '../../components/home/MainHeader'
 import InfoBar from '../../components/home/InfoBar'
 import HeroBanner from '../../components/home/HeroBanner'
@@ -5,7 +6,11 @@ import ProductHighlights from '../../components/home/ProductHighlights'
 import ProductCarousel from '../../components/product-carousel/ProductCarousel'
 import SectionTitle from '../../components/home/SectionTitle'
 import styles from '../../components/home/Home.Styles'
-import homeSections from '../../config/HomeSections'
+import {
+  HOME_SETTINGS_EVENT,
+  HOME_SETTINGS_STORAGE_KEY,
+  loadHomeSettings
+} from '../../config/homeSettings'
 
 const sectionMap = {
   'main-header': <MainHeader />,
@@ -23,7 +28,27 @@ const sectionMap = {
 }
 
 export default function Home() {
-  const orderedSections = [...homeSections]
+  const [homeSettings, setHomeSettings] = useState(() => loadHomeSettings())
+
+  useEffect(() => {
+    function refreshHomeSettings(event) {
+      if (event?.key && event.key !== HOME_SETTINGS_STORAGE_KEY) {
+        return
+      }
+
+      setHomeSettings(loadHomeSettings())
+    }
+
+    window.addEventListener(HOME_SETTINGS_EVENT, refreshHomeSettings)
+    window.addEventListener('storage', refreshHomeSettings)
+
+    return () => {
+      window.removeEventListener(HOME_SETTINGS_EVENT, refreshHomeSettings)
+      window.removeEventListener('storage', refreshHomeSettings)
+    }
+  }, [])
+
+  const orderedSections = [...homeSettings.sections]
     .filter((section) => section.visible)
     .sort((a, b) => a.order - b.order)
 

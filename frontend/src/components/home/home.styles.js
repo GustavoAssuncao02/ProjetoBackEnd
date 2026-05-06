@@ -211,7 +211,7 @@ const styles = {
 
   highlights: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(3, 1fr)',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
     gap: '26px',
     padding: '28px 24px',
     backgroundColor: '#fff'
@@ -232,14 +232,40 @@ const styles = {
   },
 
   card: {
-    textAlign: 'center'
+    color: '#000',
+    display: 'block',
+    textAlign: 'center',
+    textDecoration: 'none'
+  },
+
+  cardImageWrap: {
+    alignItems: 'center',
+    backgroundColor: '#f1f1f1',
+    borderRadius: '8px',
+    display: 'flex',
+    height: '260px',
+    justifyContent: 'center',
+    overflow: 'hidden',
+    width: '100%'
   },
 
   cardImage: {
-    width: '100%',
-    height: '260px',
+    display: 'block',
+    height: '100%',
     objectFit: 'cover',
-    borderRadius: '10px'
+    width: '100%'
+  },
+
+  cardImageFallback: {
+    alignItems: 'center',
+    color: '#777',
+    display: 'flex',
+    fontSize: '13px',
+    fontWeight: '700',
+    height: '100%',
+    justifyContent: 'center',
+    textTransform: 'uppercase',
+    width: '100%'
   },
 
   cardTitle: {

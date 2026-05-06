@@ -6,6 +6,7 @@ const menuItems = [
   { label: 'Variants', path: '/products/variant' },
   { label: 'Subcategories', path: '/subcategories-manager' },
   { label: 'Profile', path: '/profile' },
+  { label: 'Gerenciar Tela principal', path: '/home-manager' },
   { label: 'Products Manager', path: '/products' },
   { label: 'Materials', path: '/materials' },
   { label: 'Categories', path: '/categories' },
